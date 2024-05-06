@@ -4,43 +4,23 @@ import React, { ChangeEvent, useEffect, useRef, useState, useCallback, memo } fr
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
-import { useDebounce } from "@/hooks";
-import { SearchIcon } from "@/components/Icons";
+import { SearchIcon } from "~/components/Icons";
 import styles from "./Search.module.scss";
 
 const cx = classNames.bind(styles);
-type Props = {
-    searchValueParam: string;
-    setSearchValueParam: React.Dispatch<React.SetStateAction<string>>;
-};
+type Props = {};
 
-const Search = function ({ searchValueParam, setSearchValueParam }: Props) {
+const Search = function ({}: Props) {
     const [loading, setLoading] = useState<boolean>(false);
-    const debouncedValue = useDebounce(searchValueParam, 500);
     const inputRef = useRef<HTMLInputElement>(null!);
 
-    useEffect(() => {
-        if (!debouncedValue?.trim()) return;
-        const handleSearchData = function () {
-            try {
-                setLoading(true);
-            } catch (error) {
-                setLoading(false);
-            }
-        };
-
-        handleSearchData();
-    }, [debouncedValue]);
-
     const handleClear = function () {
-        setSearchValueParam("");
         inputRef.current.focus();
     };
 
     const handleChange = useCallback(function (event: ChangeEvent<HTMLInputElement>) {
         const searchValue = event.target.value;
         if (!searchValue.startsWith(" ")) {
-            setSearchValueParam(searchValue);
         }
     }, []);
 
@@ -50,13 +30,13 @@ const Search = function ({ searchValueParam, setSearchValueParam }: Props) {
             <article className={cx("container")}>
                 <input
                     ref={inputRef}
-                    value={searchValueParam}
+                    value={""}
                     spellCheck={false}
                     type="text"
                     onChange={handleChange}
                     placeholder="Search accounts and assets ..."
                 />
-                {!!searchValueParam && !loading && (
+                {!!"" && !loading && (
                     <button className={cx("clear")} onClick={handleClear}>
                         <FontAwesomeIcon icon={faCircleXmark} />
                     </button>

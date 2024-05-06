@@ -1,23 +1,40 @@
-"use client";
-
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Humburger.module.scss";
+import SidebarMenu from "~/components/Menu";
 
 const cx = classNames.bind(styles);
 
-type Props = {};
+const Hamburger = function () {
+    const [open, setOpen] = useState<boolean>(false);
+    const handleOpenMenu = () => {
+        setOpen((prev) => !prev);
+    };
 
-function Hamburger({}: Props) {
-    const [active, setActive] = useState<boolean>(false);
+    useLayoutEffect(() => {
+        const handleResponsiveSidebar = () => {
+            if (window.innerWidth > 1290) setOpen(false);
+        };
+
+        window.addEventListener("resize", handleResponsiveSidebar);
+    }, []);
 
     return (
-        <div aria-hidden tabIndex={0} role="button" onClick={() => setActive(!active)} className={cx("wrapper")}>
-            <div className={cx("container")}>
-                <div className={cx("humburger", { active: active, inactive: !active })} />
-            </div>
-        </div>
+        <>
+            <button
+                type="button"
+                className={cx("wrapper", {
+                    open: open,
+                })}
+                onClick={handleOpenMenu}
+            >
+                <span className={cx("bar")} />
+                <span className={cx("bar")} />
+                <span className={cx("bar")} />
+            </button>
+            <SidebarMenu open={open} setOpen={setOpen} />
+        </>
     );
-}
+};
 
 export default Hamburger;

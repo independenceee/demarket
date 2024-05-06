@@ -1,4 +1,5 @@
 .wrapper {
+    margin-top: 80px;
     position: relative;
     background-repeat: no-repeat;
     background-size: cover;
@@ -20,7 +21,7 @@
 }
 .carousel {
     position: relative;
-    width: calc(min(90rem, 90%));
+    width: calc(min(144rem, 90%));
     margin: 0 auto;
     min-height: calc(100vh - 80px);
     column-gap: 3rem;
@@ -75,8 +76,8 @@
         #1400ff 99.32%
     );
     text-shadow: 0px 4px 4px black;
-    height: 0.25rem;
-    width: 6.25rem;
+    height: 0.4rem;
+    width: 10rem;
     border: none;
     margin: 1.125rem 0 1.875rem 0;
 }

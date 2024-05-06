@@ -1,58 +1,36 @@
 "use client";
 
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React from "react";
 import classNames from "classnames/bind";
 import styles from "./NftContainer.module.scss";
 import Item from "../Item";
-import NftItemSkeleton from "./NftItem/NftItemSkeleton";
-import { Pagination, Stack } from "@mui/material";
-import { NftItemType } from "@/types/GenericsType";
+import Skeleton from "../Skeleton";
+import Paginate from "../Pagination";
+import { ProductType } from "~/types/GenericsType";
 
 const cx = classNames.bind(styles);
 type Props = {
-    nfts: Array<NftItemType | any>;
-    itemsPerPage?: number;
+    products: Array<ProductType | any>;
+    page: number;
+    totalPage: number;
     loading?: boolean;
 };
 
-const NftContainer = function ({ nfts, itemsPerPage = 12, loading }: Props) {
-    const [currentItems, setCurrentItems] = useState<any>([]);
-    const [pageCount, setPageCount] = useState(0);
-    const [itemOffset, setItemOffset] = useState(0);
-
-    useEffect(() => {
-        const endOffset = itemOffset + itemsPerPage;
-        setCurrentItems(nfts?.slice(itemOffset, endOffset));
-        setPageCount(Math.ceil(nfts?.length / itemsPerPage));
-    }, [itemOffset, itemsPerPage, nfts]);
-
-    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        event.preventDefault();
-        const newOffset = (value - 1) * itemsPerPage;
-        setItemOffset(newOffset);
-    };
+const Container = function ({ products, page, loading, totalPage }: Props) {
     return (
         <div className={cx("wrapper")}>
             <div className={cx("container")}>
-                {loading
-                    ? new Array(itemsPerPage).fill(null).map(function (value: any, index: number) {
-                          return <NftItemSkeleton key={index} index={index} />;
-                      })
-                    : currentItems?.map(function (value: ChangeEvent<unknown>, index: number) {
-                          return <NftItem key={index} value={value} index={index} />;
-                      })}
+                {loading &&
+                    new Array(12).fill(null).map(function (value: any, index: number) {
+                        return <Skeleton key={index} index={index} />;
+                    })}
+                {!loading &&
+                    products?.map(function (product, index: number) {
+                        return <Item key={index} product={product} index={index} />;
+                    })}
             </div>
-            {!loading && nfts.length !== 0 ? (
-                <Stack spacing={2}>
-                    <Pagination
-                        count={pageCount}
-                        shape="rounded"
-                        page={Math.ceil(itemOffset / itemsPerPage) + 1}
-                        onChange={handlePageChange}
-                    />
-                </Stack>
-            ) : null}
+            <Paginate onChange={null!} page={page} loading={loading} totalPage={totalPage} />
         </div>
     );
 };
-export default NftContainer;
+export default Container;

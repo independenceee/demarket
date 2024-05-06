@@ -26,12 +26,12 @@ const PublicLayout = function ({ children }: Props) {
     return (
         <main className={cx("wrapper")}>
             <Form />
-            {/* <Header /> */}
             <div>
+                <Header />
                 {children}
-                <Footer/>
+                <Footer />
             </div>
-            
+
             <Notification />
             {pageLoading && <Loading />}
         </main>

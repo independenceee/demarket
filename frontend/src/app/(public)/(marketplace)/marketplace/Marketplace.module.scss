@@ -5,10 +5,10 @@
 .content {
     display: flex;
     justify-content: space-between;
-    width: min(90rem, 90%);
+    width: min(144rem, 90%);
     gap: 50px;
     position: relative;
-    margin: 0 auto;
+    margin: 50px auto;
 }
 
 .content-left {
@@ -18,7 +18,7 @@
     padding-bottom: 20px;
     top: 0;
 }
-.content__left--container {
+.content-left-inner {
     display: flex;
     flex-direction: column;
     gap: 20px;
