@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Aos from "~/components/Aos";
 import NetworkStatus from "~/components/NetworkStatus";
 import Toast from "~/components/Toast";
+import ContextProvider from "~/contexts";
 import Layout from "~/layouts";
 
 export const metadata: Metadata = {
@@ -18,7 +19,9 @@ const RootLayout = function ({ children }: Props) {
     return (
         <html lang="en">
             <body>
-                <Layout>{children}</Layout>
+                <ContextProvider>
+                    <Layout>{children}</Layout>
+                </ContextProvider>
             </body>
             <NetworkStatus />
             <Aos />

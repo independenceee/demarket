@@ -24,3 +24,25 @@ export type ProductType = {
     image?: string;
     type?: string;
 };
+
+export type TransactionHistoryType = {
+    type: string;
+    txHash: string;
+    amount: number;
+    status: string;
+    fee: number;
+    blockTime: string;
+};
+
+export type HeaderTableType = {
+    title: string;
+    description?: string;
+};
+
+export type CategoryItemType = {
+    id?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    name?: string;
+    slug?: string;
+};
