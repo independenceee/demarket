@@ -10,9 +10,9 @@ import { ProductType } from "~/types/GenericsType";
 
 const cx = classNames.bind(styles);
 type Props = {
-    products: Array<ProductType | any>;
-    page: number;
-    totalPage: number;
+    products?: Array<ProductType | any>;
+    page?: number;
+    totalPage?: number;
     loading?: boolean;
 };
 
