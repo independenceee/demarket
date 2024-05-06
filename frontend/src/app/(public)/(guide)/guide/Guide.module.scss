@@ -11,14 +11,17 @@
 .container {
     margin: 0 auto;
     max-width: 1024px;
-    min-height: calc(100vh - 415px);
-    padding: 172px 0 0;
     width: 100%;
     align-items: center;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     text-align: left;
+    padding: 0 min(70px, 5.6vw);
+}
+
+.title-wrapper {
+    margin: 50px 20px;
 }
 
 @media (max-width: 1365px) {
@@ -35,10 +38,6 @@
 
     .sub-title {
         font-size: 3.07692vw;
-    }
-
-    .container {
-        padding: 172px 64px 0;
     }
 }
 
@@ -82,7 +81,6 @@
 
     .container {
         margin: 0 auto 72px;
-        padding: 172px 18px 0;
     }
 }
 

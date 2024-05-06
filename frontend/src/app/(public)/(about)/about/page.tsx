@@ -22,7 +22,7 @@ const AboutPage = function ({}: Props) {
                     title="About Us"
                     description="Blockalpha brings an exciting solution to access the WEB3 platform for everyone, with the ultimate goal of transforming the model from WEB2 to WEB3. We provide technologies to address issues related to transparency, information security, and eliminate third-party interference."
                 />
-                <Title title="About Us" />
+                <Title title="About Us" className={cx("title-wrapper")} />
                 <About />
                 <Statistics />
                 <section className={cx("founder-wrapper")}>

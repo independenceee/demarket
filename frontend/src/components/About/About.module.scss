@@ -105,6 +105,8 @@
     display: flex;
     width: 100%;
     gap: 6.4rem;
+    padding: 0 min(70px, 5.6vw);
+
 }
 .stat-djed-stablecoin,
 .stat-shen-reservation {

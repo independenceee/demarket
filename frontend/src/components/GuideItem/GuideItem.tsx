@@ -17,11 +17,12 @@ const FaqItem = function ({ title, Children }: Props) {
     const handleOpen = function () {
         setIsOpen(!isOpen);
     };
+
     return (
-        <div className={cx("wrapper", { isOpen: isOpen })} onClick={handleOpen}>
+        <div className={cx("wrapper", { isOpen: isOpen })}>
             <header className={cx("inner")}>
                 <section className={cx("icon", { isOpen: isOpen })} />
-                <section className={cx("title-wrapper")}>
+                <section className={cx("title-wrapper")} onClick={handleOpen}>
                     <h3 className={cx("title")}>{title}</h3>
                 </section>
                 {isOpen && (

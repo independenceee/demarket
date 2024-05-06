@@ -60,6 +60,18 @@
     flex-wrap: wrap;
     justify-content: space-between;
     text-align: left;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 60px;
+        height: 100%;
+        right: -36px;
+        background-color: transparent;
+        z-index: 1;
+    }
 }
 
 .title {
@@ -68,6 +80,7 @@
     line-height: 40px;
     margin: 0;
     padding: 0;
+    color: #fff;
 }
 
 .faq-paragraph {
