@@ -44,6 +44,7 @@
     transition: all 0.1s ease-out;
     width: 16px;
     z-index: 100;
+    pointer-events: none;
 
     &.isOpen {
         transform: rotate(180deg);
