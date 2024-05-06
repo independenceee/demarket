@@ -1,0 +1,33 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: min(90rem, 90%);
+    margin: 0 auto;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.title {
+    color: var(--text-color);
+    font-size: 4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.description {
+    max-width: 60rem;
+    text-align: center;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--text-color);
+    max-width: 600px;
+}
+
+

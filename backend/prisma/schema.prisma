@@ -1,0 +1,196 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id               String       @id @default(uuid())
+  created_at       DateTime     @default(now())
+  updated_at       DateTime     @updatedAt
+  wallet_address   String       @unique @db.Text
+  stake_address    String?      @unique @db.Text
+  username         String?      @db.Text
+  description      String?      @db.Text
+  avatar           String?      @db.Text
+  email            String?      @db.Text
+  telegram         String?      @db.Text
+  linkedin         String?      @db.Text
+  twitter          String?      @db.Text
+  collections      Collection[]
+  Like             Like[]
+  Cart             Cart?
+  Likes            Likes[]
+  Comments         Comments[]
+  followers        Follows[]    @relation("following")
+  following        Follows[]    @relation("follower")
+  current_products Product[]    @relation("current")
+  author_products  Product[]    @relation("author")
+  sell_products    Product[]    @relation("seller")
+}
+
+model Product {
+  id                    String        @id @default(uuid())
+  created_at            DateTime      @default(now())
+  updated_at            DateTime      @updatedAt
+  policy_id             String        @db.Text
+  asset_name            String        @db.Text
+  fingerprint           String?        @db.Text
+  price                 String?        @db.Text
+  royalties             String?        @db.Text
+  author_address        String?        @db.Text
+  seller_address        String?        @db.Text
+  current_address       String?        @db.Text
+  author_stake_address  String?        @db.Text
+  seller_stake_address  String?        @db.Text
+  current_stake_address String?        @db.Text
+  medadata              String?        @db.Text
+  current               Account?      @relation("current", fields: [current_address], references: [wallet_address])
+  seller                Account?      @relation("seller", fields: [seller_address], references: [wallet_address])
+  author                Account?      @relation("author", fields: [author_address], references: [wallet_address])
+  likes                 Like[]
+  cart_products         CartProduct[]
+  Likes                 Likes[]
+  Comments              Comments[]
+}
+
+model Trending {
+  id                    String   @id @default(uuid())
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+  policy_id             String   @db.Text
+  asset_name            String   @db.Text
+  author_address        String   @db.Text
+  seller_address        String   @db.Text
+  current_address       String   @db.Text
+  author_stake_address  String   @db.Text
+  seller_stake_address  String   @db.Text
+  current_stake_address String   @db.Text
+}
+
+model Banner {
+  id          String   @id @default(uuid())
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  policy_id   String   @db.Text
+  asset_name  String   @db.Text
+  title       String   @db.Text
+  description String   @db.Text
+  image       String   @db.Text
+}
+
+model Follows {
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  follower     Account  @relation("follower", fields: [follower_id], references: [id])
+  follower_id  String   @db.Text
+  following    Account  @relation("following", fields: [following_id], references: [id])
+  following_id String   @db.Text
+
+  @@id([follower_id, following_id])
+  @@unique([follower_id, following_id])
+}
+
+model Likes {
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  account_id String   @db.Text
+  account    Account  @relation(fields: [account_id], references: [id])
+  Product_id String
+  Product    Product  @relation(fields: [Product_id], references: [id])
+
+  @@id([account_id, Product_id])
+}
+
+model Comments {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  account_id String  @db.Text
+  account    Account @relation(fields: [account_id], references: [id])
+
+  Product_id String
+  Product    Product @relation(fields: [Product_id], references: [id])
+
+  @@id([account_id, Product_id])
+}
+
+model Like {
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  account_id String @db.Text
+  Product_id String @db.Text
+
+  account Account @relation(fields: [account_id], references: [id])
+  Product Product @relation(fields: [Product_id], references: [id])
+
+  @@id([account_id, Product_id])
+}
+
+model CartProduct {
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  cart_id    String  @db.Text
+  cart       Cart    @relation(fields: [cart_id], references: [id], onDelete: Cascade)
+  Product_id String  @db.Text
+  Product    Product @relation(fields: [Product_id], references: [id], onDelete: Cascade)
+
+  @@id([cart_id, Product_id])
+}
+
+model Cart {
+  id         String   @id @default(uuid())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  account_id String        @unique
+  account    Account       @relation(fields: [account_id], references: [id], onDelete: Cascade)
+  Products   CartProduct[]
+}
+
+model Category {
+  id         String   @id @default(uuid())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  name String @db.Text
+  slug String @db.Text
+}
+
+model Collection {
+  id         String   @id @default(uuid())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  policy_id   String @db.Text
+  title       String @db.Text
+  description String @db.Text
+
+  avatar String @db.Text
+  cover  String @db.Text
+
+  account_id String  @db.Text
+  account    Account @relation(fields: [account_id], references: [id], onDelete: Cascade)
+}
+
+model Founder {
+  id         String   @id @default(uuid())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  first_name String @db.Text
+  last_name  String @db.Text
+
+  role     String @db.Text
+  company  String @default("Block Alpha") @db.Text
+  avatar   String @db.Text
+  email    String @db.Text
+  telegram String @db.Text
+  linkedin String @db.Text
+  twitter  String @db.Text
+}
