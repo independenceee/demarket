@@ -10,6 +10,7 @@ import { ClipLoader } from "react-spinners";
 import Hamburger from "~/components/Humburger";
 import Logo from "~/components/Logo";
 import ConnectWallet from "~/layouts/components/ConnectWallet";
+import HeaderUtilities from "../HeaderUtilities/HeaderUtilities";
 // import Search from "@/layouts/components/Search";
 // import { CartContextType } from "@/types/contexts/CartContextType";
 // import CartContext from "@/contexts/components/CartContext";
@@ -24,7 +25,7 @@ import ConnectWallet from "~/layouts/components/ConnectWallet";
 // import ModalContext from "@/contexts/components/ModalContext";
 // import Modal from "@/components/Modal";
 // import Hamburger from "@/components/Hamburger";
-// import HeaderUtilities from "../HeaderUtilities";
+
 const cx = classNames.bind(styles);
 type Props = {
     selectedRouter: string;
@@ -42,7 +43,7 @@ const Header = function ({ selectedRouter, setSelectedRouter }: Props) {
                     })}
                 </nav> */}
                 <div className={cx("button__wrapper")}>
-                    {/* <HeaderUtilities className={cx("button__other")} /> */}
+                    <HeaderUtilities className={cx("button__other")} />
                     <ConnectWallet className={cx("connect-wallet-button")} />
                     <Hamburger />
                 </div>

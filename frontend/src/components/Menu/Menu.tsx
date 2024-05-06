@@ -5,7 +5,7 @@ import { publicRouters } from "~/routes";
 import configs from "~/configs";
 import Option from "~/layouts/components/Header/Option";
 import ConnectWallet from "~/layouts/components/ConnectWallet";
-// import HeaderUtilities from "@/layouts/components/HeaderUtilities";
+import HeaderUtilities from "~/layouts/components/HeaderUtilities/HeaderUtilities";
 
 const cx = classNames.bind(styles);
 
@@ -46,7 +46,7 @@ const SidebarMenu = function ({ open, setOpen, className }: Props) {
                     })}
                 </ul>
             </nav>
-            {/* <HeaderUtilities className={cx("utilities")} /> */}
+            <HeaderUtilities className={cx("utilities")} />
         </div>
     );
 };

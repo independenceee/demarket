@@ -78,6 +78,7 @@
         text-align: center;
         align-items: center;
     }
+
     .about-video {
         margin-right: 0px;
         margin-bottom: 20px;
@@ -92,7 +93,7 @@
 }
 
 .title-wrapper {
-    margin-top: 50px;
+    margin: 50px auto !important;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
