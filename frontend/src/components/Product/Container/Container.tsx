@@ -2,7 +2,7 @@
 
 import React from "react";
 import classNames from "classnames/bind";
-import styles from "./NftContainer.module.scss";
+import styles from "./Container.module.scss";
 import Item from "../Item";
 import Skeleton from "../Skeleton";
 import Paginate from "../Pagination";
@@ -20,7 +20,7 @@ const Container = function ({ products, page, loading, totalPage }: Props) {
     return (
         <div className={cx("wrapper")}>
             <div className={cx("container")}>
-                {loading &&
+                {!loading &&
                     new Array(12).fill(null).map(function (value: any, index: number) {
                         return <Skeleton key={index} index={index} />;
                     })}

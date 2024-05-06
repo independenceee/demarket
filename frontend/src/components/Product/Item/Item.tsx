@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import classNames from "classnames/bind";
 import CountUp from "react-countup";
-import styles from "./Product.module.scss";
+import styles from "./Item.module.scss";
 import images from "~/assets/images";
 import convertIpfsAddressToUrl from "~/helpers/convert-ipfs-to-url";
 import checkMediaType from "~/helpers/check-media-type";
@@ -68,8 +68,8 @@ const ProductItem = function ({ product, index }: Props) {
                             alt=""
                         />
 
-                        {product.price && <h3 className={cx("name")}>{product.sellerAddress}</h3>}
-                        {!product.price && <h3 className={cx("name")}>{product.currentAddress}</h3>}
+                        {/* {product.price && <h3 className={cx("name")}>{product.sellerAddress}</h3>}
+                        {!product.price && <h3 className={cx("name")}>{product.currentAddress}</h3>} */}
                     </div>
                     {product.price && (
                         <h3 className={cx("price")}>

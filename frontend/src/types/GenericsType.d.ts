@@ -46,3 +46,9 @@ export type CategoryItemType = {
     name?: string;
     slug?: string;
 };
+
+export type TransactionResponseType = {
+    totalPage: number;
+    histories: TransactionHistoryType[];
+    totalItems: number;
+};

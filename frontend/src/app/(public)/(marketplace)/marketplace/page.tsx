@@ -7,8 +7,9 @@ import Search from "~/components/Filter/Search";
 import Sort from "~/components/Filter/Sort";
 import Verify from "~/components/Filter/Verify";
 import Category from "~/components/Filter/Category";
-
+import Container from "~/components/Product/Container";
 import styles from "./Marketplace.module.scss";
+
 const cx = classNames.bind(styles);
 
 type Props = {};
@@ -28,9 +29,9 @@ const Marketplace = function ({}: Props) {
                             <Verify />
                         </div>
                     </div>
-                    {/* <div className={cx("content__right")} data-aos="fade-left" data-aos-duration="1000">
-                        <NftContainer nfts={assetsFilter} itemsPerPage={12} loading={loadingAssetsFromSmartContract} />
-                    </div> */}
+                    <div className={cx("content-right")} data-aos="fade-left" data-aos-duration="1000">
+                        <Container />
+                    </div>
                 </section>
             </div>
         </div>
