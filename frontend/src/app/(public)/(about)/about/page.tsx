@@ -6,15 +6,13 @@ import Statistics from "~/components/Statistics";
 import Founder from "~/components/Founder";
 import Title from "~/components/Title";
 import styles from "./About.module.scss";
-import Button from "~/components/Button";
 import founders from "~/data/founders";
 import About from "~/components/About";
 import Banner from "~/components/Banner";
 
-type Props = {};
 const cx = classNames.bind(styles);
 
-const AboutPage = function ({}: Props) {
+const AboutPage = function () {
     return (
         <main className={cx("wrapper")}>
             <div className={cx("container")} data-aos="fade-down">
