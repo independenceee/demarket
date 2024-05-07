@@ -15,6 +15,7 @@ const images = {
     khanh: require("./founders/khanh.jpg"),
     /* founder-image-end */
 
+    banner: require("./banner.jpg"),
     logo: require("./logo.jpg"),
     user: require("./user.jpg"),
 };

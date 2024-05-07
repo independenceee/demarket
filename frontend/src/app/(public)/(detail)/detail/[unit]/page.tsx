@@ -13,15 +13,42 @@ import icons from "~/assets/icons";
 import History from "~/components/History";
 import { get } from "~/utils/http-request";
 import { useQuery } from "@tanstack/react-query";
+import checkMediaType from "~/helpers/check-media-type";
+import convertIpfsAddressToUrl from "~/helpers/convert-ipfs-to-url";
 const cx = classNames.bind(styles);
 type Props = {};
 
 const Detail = function ({}: Props) {
     const [page, setPage] = useState<number>(1);
+    const { unit }: any = useParams();
+    const [policyId] = useState<string>(unit.slice(0, 56));
+    const [assetName] = useState<string>(unit.slice(56));
 
     const { data, isLoading, isError } = useQuery({
-        queryKey: ["Marketplace", page],
+        queryKey: ["Marketplaces", page],
         queryFn: () => get(`/marketplaces?page=${page}&pageSize=12`),
+    });
+
+    const {
+        data: product,
+        isLoading: isLoadingProduct,
+        isError: isErrorProduct,
+    } = useQuery({
+        queryKey: ["Product", page],
+        queryFn: () => get(`/marketplaces?policyId=${policyId}&assetName=${assetName}`),
+        enabled: Boolean(policyId) || Boolean(assetName),
+    });
+
+    console.log(product);
+
+    const {
+        data: histories,
+        isLoading: isLoadingHistories,
+        isError: isErrorHistories,
+    } = useQuery({
+        queryKey: ["Histories", page],
+        queryFn: () => get(`/products?page=${page}&pageSize=12`),
+        enabled: Boolean(policyId) || Boolean(assetName),
     });
 
     return (
@@ -31,17 +58,50 @@ const Detail = function ({}: Props) {
                     <div className={cx("stats-inner")}>
                         <div className={cx("about-inner")}>
                             <div className={cx("video-iframe-wrapper")}>
-                                <iframe
+                                {/* <iframe
                                     className={cx("video-iframe")}
                                     src="https://www.youtube.com/embed/DCWY93O_QAU"
                                     title="Daultarget - Mục Tiêu Kép"
                                     frameBorder={"none"}
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                ></iframe>
+                                ></iframe> */}
+                                {checkMediaType(product?.metadata.mediaType, "image") && (
+                                    <img
+                                        className={cx("video-iframe")}
+                                        src={String(convertIpfsAddressToUrl(product?.metadata.image))}
+                                        alt=""
+                                    />
+                                )}
+
+                                {checkMediaType(product?.metadata.mediaType, "video") && (
+                                    <video autoPlay muted loop className={cx("video-iframe")}>
+                                        <source
+                                            src={String(convertIpfsAddressToUrl(product?.metadata.image))}
+                                            type="video/mp4"
+                                        />
+                                    </video>
+                                )}
+
+                                {checkMediaType(product?.metadata.mediaType, "application") && (
+                                    <iframe
+                                        frameBorder={"none"}
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        className={cx("video-iframe")}
+                                        src={String(convertIpfsAddressToUrl(product?.metadata.image))}
+                                    ></iframe>
+                                )}
+
+                                {checkMediaType(product?.metadata.mediaType, "audio") && (
+                                    <audio controls>
+                                        <source
+                                            src={String(convertIpfsAddressToUrl(product?.metadata.image))}
+                                            type="audio/mpeg"
+                                        />
+                                    </audio>
+                                )}
                             </div>
 
                             <div className={cx("detail")}>
-                                <Card title="NftItem" icon={icons.glass} />
                                 <Card title="NftItem" icon={icons.glass} />
                                 <Card title="NftItem" icon={icons.glass} />
                             </div>
@@ -50,11 +110,11 @@ const Detail = function ({}: Props) {
                 </section>
                 <section>
                     <History
-                        page={null!}
-                        setPage={null!}
-                        data={null!}
-                        isError={null!}
-                        isLoading={null!}
+                        page={page}
+                        setPage={setPage}
+                        data={histories?.histories}
+                        isError={isErrorHistories}
+                        isLoading={isLoadingHistories}
                         className={cx("orders")}
                     />
                 </section>
