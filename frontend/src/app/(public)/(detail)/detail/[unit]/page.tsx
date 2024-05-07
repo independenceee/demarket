@@ -11,10 +11,19 @@ import Title from "~/components/Title";
 import Card from "~/components/Card";
 import icons from "~/assets/icons";
 import History from "~/components/History";
+import { get } from "~/utils/http-request";
+import { useQuery } from "@tanstack/react-query";
 const cx = classNames.bind(styles);
 type Props = {};
 
 const Detail = function ({}: Props) {
+    const [page, setPage] = useState<number>(1);
+
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ["Marketplace", page],
+        queryFn: () => get(`/marketplaces?page=${page}&pageSize=12`),
+    });
+
     return (
         <main className={cx("wrapper")} data-aos="fade-down">
             <div className={cx("container")}>
@@ -53,7 +62,12 @@ const Detail = function ({}: Props) {
                 <section className={cx("other")}>
                     <Title title="More Items" />
                     <article className={cx("inner")}>
-                        <Container />
+                        <Container
+                            products={data?.products}
+                            page={page}
+                            loading={isLoading}
+                            totalPage={data?.totalPage}
+                        />
                     </article>
                 </section>
             </div>

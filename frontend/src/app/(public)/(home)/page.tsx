@@ -10,6 +10,7 @@ import Title from "~/components/Title";
 import Container from "~/components/Product/Container";
 import { get } from "~/utils/http-request";
 import { useQuery } from "@tanstack/react-query";
+import Slider from "~/components/Product/Slider";
 
 const cx = classNames.bind(styles);
 
@@ -21,7 +22,6 @@ const Home = function ({}: Props) {
         queryFn: () => get(`/marketplaces?page=${page}&pageSize=12`),
     });
 
-    console.log(data);
     return (
         <main className={cx("wrapper")}>
             <div className={cx("container")}>
@@ -44,7 +44,46 @@ const Home = function ({}: Props) {
                         title="Trending Items"
                         description="The trending tech products of 2024. Let's shop now for the hottest products."
                     />
-                    <article className={cx("inner")}></article>
+                    <article className={cx("inner")}>
+                        <div className={cx("trending__container")}>
+                            <section className={cx("slider__wrapper")}>
+                                <div className={cx("slider__list-left")}>
+                                    {isLoading
+                                        ? new Array(10).fill(null).map(function (value: any, index: number) {
+                                              return <></>;
+                                          })
+                                        : data.products.slice(0, 5).map(function (product: any, index: number) {
+                                              return (
+                                                  <Slider
+                                                      url={product.metadata.image}
+                                                      type={product.metadata.mediaType}
+                                                      key={index}
+                                                      index={index}
+                                                  />
+                                              );
+                                          })}
+                                </div>
+                            </section>
+                            <section className={cx("slider__wrapper")}>
+                                <div className={cx("slider__list-right")}>
+                                    {isLoading
+                                        ? new Array(10).fill(null).map(function (value: any, index: number) {
+                                              return <></>;
+                                          })
+                                        : data.products.slice(5, 12).map(function (product: any, index: number) {
+                                              return (
+                                                  <Slider
+                                                      url={product.metadata.image}
+                                                      type={product.metadata.mediaType}
+                                                      key={index}
+                                                      index={index}
+                                                  />
+                                              );
+                                          })}
+                                </div>
+                            </section>
+                        </div>
+                    </article>
                 </section>
 
                 <section className={cx("content")}>

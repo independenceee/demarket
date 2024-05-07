@@ -13,3 +13,63 @@
     position: relative;
     margin: 0 auto;
 }
+
+.slider__list-left {
+    padding: 20px 0;
+    overflow: hidden;
+
+    list-style: none;
+    display: flex;
+    width: max-content;
+
+    animation: runSliderRight 10s linear infinite;
+
+    &:hover {
+        animation-play-state: paused;
+    }
+}
+.slider__list-right {
+    overflow: hidden;
+    padding: 20px 0;
+    list-style: none;
+    display: flex;
+    width: max-content;
+    animation: runSliderLeft 10s linear infinite;
+
+    &:hover {
+        animation-play-state: paused;
+    }
+}
+.slider__item {
+    height: auto;
+    width: 310px;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
+.slider__image {
+    border-radius: 8px;
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+}
+
+@keyframes runSliderLeft {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(calc(-320px * 1));
+    }
+}
+
+@keyframes runSliderRight {
+    from {
+        transform: translateX(calc(-320px * 1));
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
