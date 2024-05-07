@@ -18,7 +18,6 @@ import LucidContext from "~/contexts/components/LucidContext";
 import { WalletContextType } from "~/types/contexts/WalletContextType";
 import WalletContext from "~/contexts/components/WalletContext";
 import convertString from "~/helpers/convert-string";
-import images from "~/assets/images";
 import Tippy from "~/components/Tippy";
 import { NetworkContextType } from "~/types/contexts/NetworkContextType";
 import NetworkContext from "~/contexts/components/NetworkContext";
@@ -83,6 +82,7 @@ const ConnectWallet = function ({ className }: Props) {
                                                 numberOfLastChar: -16,
                                             })}
                                             <Tippy
+                                                hideOnClick={false}
                                                 placement={"top-end"}
                                                 render={isCopied ? <div>Copied.</div> : <div>Copy to clipboard.</div>}
                                             >
@@ -126,7 +126,7 @@ const ConnectWallet = function ({ className }: Props) {
                 <Button
                     onClick={toggleShowingWallet}
                     className={cx("connect-wallet-button", {
-                        "wallet-show": isShowTippy,
+                        "wallet-show": isShowTippy && wallet,
                         isShowingErrorNetwork: isShowingErrorNetwork,
                     })}
                 >

@@ -8,14 +8,23 @@ import Form from "~/layouts/components/Form";
 import Notification from "~/layouts/components/Notification";
 import Header from "~/layouts/components/Header";
 import Footer from "~/layouts/components/Footer";
+import { usePathname } from "next/navigation";
 type Props = {
     children: ReactNode;
 };
 
 const cx = classNames.bind(styles);
-const LOADING_TIME = 3000;
+const LOADING_TIME = 1000;
+
 const PublicLayout = function ({ children }: Props) {
     const [pageLoading, setPageLoading] = useState<boolean>(true);
+    const pathName: any = usePathname();
+    const [selectedRouter, setSelectedRouter] = useState<string>("");
+    useEffect(() => {
+        const router = pathName.split("/").join("").toUpperCase();
+        setSelectedRouter(router || "Home");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pathName]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -27,7 +36,7 @@ const PublicLayout = function ({ children }: Props) {
         <main className={cx("wrapper")}>
             <Form />
             <div>
-                <Header />
+                <Header selectedRouter={selectedRouter} setSelectedRouter={setSelectedRouter} />
                 {children}
                 <Footer />
             </div>

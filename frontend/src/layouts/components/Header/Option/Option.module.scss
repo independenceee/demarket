@@ -1,4 +1,5 @@
 .navbar__link {
+    display: inline-block;
     cursor: pointer;
     text-decoration: none;
     display: flex;
@@ -8,11 +9,10 @@
     letter-spacing: 1.2;
     line-height: 1.42px;
     font-weight: 600;
-
+    font-size: 1.6rem;
     .navbar__content {
         color: #4c4747;
         line-height: 1.08;
-        padding: 2px;
         white-space: nowrap;
         position: relative;
 
@@ -30,7 +30,7 @@
             opacity: 0;
             right: 0;
             transform-origin: left center;
-            transform: scale(0);
+            transform: scaleX(0);
             transition: all 0.3s;
             visibility: hidden;
             width: auto;
@@ -38,7 +38,7 @@
     }
 
     &:hover .navbar__content::before {
-        transform: scale(1);
+        transform: scaleX(1);
         visibility: visible;
         opacity: 1;
     }
@@ -64,11 +64,11 @@
         border-bottom-right-radius: 4px;
         content: "";
         height: 2px;
-        bottom: -6px;
         position: absolute;
         left: 0;
-        opacity: 1;
         right: 0;
-        width: auto;
+        bottom: -6px;
+        width: 100%;
+        opacity: 1;
     }
 }

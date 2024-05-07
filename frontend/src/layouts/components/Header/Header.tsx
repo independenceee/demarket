@@ -11,6 +11,8 @@ import Hamburger from "~/components/Humburger";
 import Logo from "~/components/Logo";
 import ConnectWallet from "~/layouts/components/ConnectWallet";
 import HeaderUtilities from "../HeaderUtilities/HeaderUtilities";
+import Option from "./Option";
+import { publicRouters } from "~/routes";
 // import Search from "@/layouts/components/Search";
 // import { CartContextType } from "@/types/contexts/CartContextType";
 // import CartContext from "@/contexts/components/CartContext";
@@ -37,11 +39,19 @@ const Header = function ({ selectedRouter, setSelectedRouter }: Props) {
         <header className={cx("wrapper")}>
             <div className={cx("container")}>
                 <Logo />
-                {/* <nav className={cx("navbar")}>
-                    {publicRouters.map(function (publicRouter, index: number) {
-                        return <NavbarItem key={index} text={publicRouter.name} redirect={publicRouter.redirect} isActive={Boolean(selectedRouter === publicRouter.name)} setSelected={setSelectedRouter} />;
+                <nav className={cx("navbar")}>
+                    {publicRouters.map(function (publicRouter, index) {
+                        return (
+                            <Option
+                                key={index}
+                                text={publicRouter.name}
+                                redirect={publicRouter.redirect}
+                                isActive={Boolean(selectedRouter === publicRouter.name)}
+                                setSelected={setSelectedRouter}
+                            />
+                        );
                     })}
-                </nav> */}
+                </nav>
                 <div className={cx("button__wrapper")}>
                     <HeaderUtilities className={cx("button__other")} />
                     <ConnectWallet className={cx("connect-wallet-button")} />

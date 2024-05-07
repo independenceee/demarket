@@ -19,12 +19,6 @@ const HeaderUtilities = function ({ className }: Props) {
         <div className={cx("button__other", className)}>
             <div className={cx("icon__container")}>
                 <FontAwesomeIcon
-                    icon={faMagnifyingGlass}
-                    // onClick={toggleShowingSearch}
-                />
-            </div>
-            <div className={cx("icon__container")}>
-                <FontAwesomeIcon
                     icon={faCartShopping}
                     // onClick={toggleShowingCart}
                 />

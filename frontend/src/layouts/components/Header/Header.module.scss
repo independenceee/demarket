@@ -18,7 +18,7 @@
 
 .navbar {
     display: flex;
-    gap: 15px;
+    gap: 24px;
 }
 
 .button__wrapper {
@@ -66,13 +66,13 @@
     }
 }
 
-@media screen and (max-width: 1290px) {
+@media screen and (max-width: 1300px) {
     .navbar {
         display: none;
     }
 }
 
-@media screen and (max-width: 656px) {
+@media screen and (max-width: 1024px) {
     .button__other {
         display: none !important;
     }
