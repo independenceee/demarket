@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import classNames from "classnames/bind";
 import Background from "~/components/Background";
 import Search from "~/components/Filter/Search";
@@ -9,12 +9,21 @@ import Verify from "~/components/Filter/Verify";
 import Category from "~/components/Filter/Category";
 import Container from "~/components/Product/Container";
 import styles from "./Marketplace.module.scss";
-
+import { useQuery } from "@tanstack/react-query";
+import { get } from "~/utils/http-request";
 const cx = classNames.bind(styles);
 
 type Props = {};
 
 const Marketplace = function ({}: Props) {
+    const [page, setPage] = useState<number>(1);
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ["Marketplace", page],
+        queryFn: () => get(`/marketplaces?page=${page}&pageSize=12`),
+    });
+
+    console.log(data);
+
     return (
         <div className={cx("wrapper")} data-aos="fade-down">
             <title>Marketplace - Demarket</title>
@@ -30,7 +39,12 @@ const Marketplace = function ({}: Props) {
                         </div>
                     </div>
                     <div className={cx("content-right")} data-aos="fade-left" data-aos-duration="1000">
-                        <Container />
+                        <Container
+                            products={data?.products}
+                            page={page}
+                            loading={isLoading}
+                            totalPage={data?.totalPage}
+                        />
                     </div>
                 </section>
             </div>

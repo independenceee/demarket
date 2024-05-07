@@ -21,6 +21,9 @@ export type ProductType = {
     price: number;
     avatar: string;
 
+    metadata?: any;
+    sellerAddress?: string;
+    currentAddress?: string;
     image?: string;
     type?: string;
 };

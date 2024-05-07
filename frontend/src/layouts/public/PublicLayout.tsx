@@ -33,7 +33,7 @@ const PublicLayout = function ({ children }: Props) {
             </div>
 
             <Notification />
-            {pageLoading && <Loading />}
+            {/* {pageLoading && <Loading />} */}
         </main>
     );
 };
