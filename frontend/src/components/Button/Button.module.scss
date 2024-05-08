@@ -1,13 +1,37 @@
 .wrapper {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding: 0.6rem 1rem;
+    font-family: var(--font-family);
     cursor: pointer;
-    width: 100%;
+    background: linear-gradient(
+        90deg,
+        #8f04a6 0%,
+        #c0f 0%,
+        #7000ff 39.36%,
+        rgba(44, 0, 219, 0.91) 63.12%,
+        rgba(4, 0, 203, 0.89) 79.64%,
+        #1400ff 99.32%
+    );
+    border-radius: 3.125rem;
+    text-decoration: none;
+    border: 2px solid #7000ff;
+    transition: 0.3s ease-in-out;
+    letter-spacing: 1.2;
+    font-weight: 550;
+    user-select: none;
+    color: var(--white-color);
 
+    &:hover {
+        background: var(--white-color);
+        border: 0.125rem solid #7000ff;
+        color: #7000ff;
+    }
     &.disabled {
-        cursor: not-allowed;
-        opacity: 0.4;
+        pointer-events: none;
+        opacity: 0.5;
     }
 }
 

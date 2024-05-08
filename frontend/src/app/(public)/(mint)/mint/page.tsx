@@ -259,7 +259,9 @@ const MintPage = function ({}: Props) {
                         </div>
 
                         <div className={cx("mint")}>
-                            <Button onClick={handleMint}>Mint</Button>
+                            <Button className={cx("button__upload")} onClick={handleMint}>
+                                Mint
+                            </Button>
                         </div>
                     </div>
                     {/* bill-end */}

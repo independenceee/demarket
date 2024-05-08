@@ -40,7 +40,7 @@ const AccountProvider = function ({ children }: Props) {
         }
     }, [wallet?.address]);
 
-    return <AccountContext.Provider value={{ loading }}>{children}</AccountContext.Provider>;
+    return <AccountContext.Provider value={{ loading, account }}>{children}</AccountContext.Provider>;
 };
 
 export default AccountProvider;

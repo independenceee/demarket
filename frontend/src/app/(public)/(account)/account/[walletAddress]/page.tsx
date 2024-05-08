@@ -47,11 +47,16 @@ const AccountPage = function ({}: Props) {
 
     const [page, setPage] = useState<number>(1);
     const { data, isLoading, isError } = useQuery({
-        queryKey: ["Account", page],
+        queryKey: ["Product", page],
         queryFn: () => get(`/products?walletAddress=${walletAddress}&page=${page}&pageSize=12`),
     });
 
-    console.log(data);
+    const { data: account, isLoading: isLoadingAccount } = useQuery({
+        queryKey: ["Account", page],
+        queryFn: () => get(`/accounts/${walletAddress}`),
+    });
+
+    console.log(account);
 
     const [activeTab, setActiveTab] = useState<string>("my assets");
     const [openIntroduce, setOpenIntroduce] = useState<boolean>(true);
@@ -90,8 +95,8 @@ const AccountPage = function ({}: Props) {
 
                     <div className={cx("account__content")}>
                         <div className={cx("account__infomation")}>
-                            {/* <h3>{accountWalletAddressParams && accountWalletAddressParams.userName}</h3>
-                            <p>{accountWalletAddressParams && accountWalletAddressParams.description}</p> */}
+                            <h3>{account?.username ? account?.username : walletAddress}</h3>
+                            <p>{account?.description ? account?.description : ""}</p>
                         </div>
                         <div className={cx("account__media")}>
                             <div className={cx("social__links")}>
@@ -226,6 +231,7 @@ const AccountPage = function ({}: Props) {
                                     page={page}
                                     loading={isLoading}
                                     totalPage={data?.totalPage}
+                                    setPage={setPage}
                                 />
                             )}
                             {activeTab === "selling" && (
@@ -234,6 +240,7 @@ const AccountPage = function ({}: Props) {
                                     page={page}
                                     loading={isLoading}
                                     totalPage={data?.totalPage}
+                                    setPage={setPage}
                                 />
                             )}
                             {activeTab === "created" && (
@@ -242,6 +249,7 @@ const AccountPage = function ({}: Props) {
                                     page={page}
                                     loading={isLoading}
                                     totalPage={data?.totalPage}
+                                    setPage={setPage}
                                 />
                             )}
                             {activeTab === "collection" && (
@@ -250,6 +258,7 @@ const AccountPage = function ({}: Props) {
                                     page={page}
                                     loading={isLoading}
                                     totalPage={data?.totalPage}
+                                    setPage={setPage}
                                 />
                             )}
                             {activeTab === "following" && (
@@ -258,6 +267,7 @@ const AccountPage = function ({}: Props) {
                                     page={page}
                                     loading={isLoading}
                                     totalPage={data?.totalPage}
+                                    setPage={setPage}
                                 />
                             )}
                             {activeTab === "follower" && (
@@ -266,6 +276,7 @@ const AccountPage = function ({}: Props) {
                                     page={page}
                                     loading={isLoading}
                                     totalPage={data?.totalPage}
+                                    setPage={setPage}
                                 />
                             )}
                             {activeTab === "like" && (
@@ -274,6 +285,7 @@ const AccountPage = function ({}: Props) {
                                     page={page}
                                     loading={isLoading}
                                     totalPage={data?.totalPage}
+                                    setPage={setPage}
                                 />
                             )}
                         </section>
@@ -285,6 +297,7 @@ const AccountPage = function ({}: Props) {
                                     page={page}
                                     loading={isLoading}
                                     totalPage={data?.totalPage}
+                                    setPage={setPage}
                                 />
                             </div>
                         </section>
