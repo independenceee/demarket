@@ -16,6 +16,7 @@ import Skeleton from "react-loading-skeleton";
 const cx = classNames.bind(styles);
 
 type Props = {};
+
 const Home = function ({}: Props) {
     const [page, setPage] = useState<number>(1);
     const { data, isLoading, isError } = useQuery({
