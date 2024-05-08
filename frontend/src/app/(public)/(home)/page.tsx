@@ -23,6 +23,47 @@ const Home = function ({}: Props) {
         queryFn: () => get(`/marketplaces?page=${page}&pageSize=12`),
     });
 
+    const renderSliders = ({
+        repeatCount = 5,
+        direction,
+        data,
+        duration = 10000,
+    }: {
+        repeatCount?: number;
+        direction: "left" | "right";
+        data: any;
+        duration?: number;
+    }) => {
+        const sliders = [];
+        for (let i = 0; i < repeatCount; i++) {
+            sliders.push(
+                <div
+                    className={cx("marquee-wrapper", {
+                        "slider__list-left": direction === "left",
+                        "slider__list-right": direction === "right",
+                    })}
+                    style={
+                        {
+                            "--duration": `${duration}ms`,
+                        } as Record<string, string>
+                    }
+                >
+                    {data?.map(function (product: any, index: number) {
+                        return (
+                            <Slider
+                                url={product.metadata.image}
+                                type={product.metadata.mediaType}
+                                key={index}
+                                index={index}
+                            />
+                        );
+                    })}
+                </div>,
+            );
+        }
+        return sliders;
+    };
+
     return (
         <main className={cx("wrapper")}>
             <div className={cx("container")}>
@@ -46,10 +87,10 @@ const Home = function ({}: Props) {
                         title="Trending Items"
                         description="The trending tech products of 2024. Let's shop now for the hottest products."
                     />
-                    <article className={cx("inner")}>
+                    <article className={cx("marquee-section")}>
                         <div className={cx("trending__container")}>
                             <section className={cx("slider__wrapper")}>
-                                <div className={cx("slider__list-left")}>
+                                <div className={cx("marquee-wrapper")}>
                                     {isLoading
                                         ? new Array(10).fill(null).map(function (value: any, index: number) {
                                               return (
@@ -64,33 +105,23 @@ const Home = function ({}: Props) {
                                                   </div>
                                               );
                                           })
-                                        : data?.products.slice(0, 5).map(function (product: any, index: number) {
-                                              return (
-                                                  <Slider
-                                                      url={product.metadata.image}
-                                                      type={product.metadata.mediaType}
-                                                      key={index}
-                                                      index={index}
-                                                  />
-                                              );
+                                        : renderSliders({
+                                              direction: "right",
+                                              data: data?.products.slice(0, 5),
+                                              duration: 20000,
                                           })}
                                 </div>
                             </section>
                             <section className={cx("slider__wrapper")}>
-                                <div className={cx("slider__list-right")}>
+                                <div className={cx("marquee-wrapper")}>
                                     {isLoading
                                         ? new Array(10).fill(null).map(function (value: any, index: number) {
                                               return <></>;
                                           })
-                                        : data?.products.slice(5, 12).map(function (product: any, index: number) {
-                                              return (
-                                                  <Slider
-                                                      url={product.metadata.image}
-                                                      type={product.metadata.mediaType}
-                                                      key={index}
-                                                      index={index}
-                                                  />
-                                              );
+                                        : renderSliders({
+                                              direction: "left",
+                                              data: data?.products.slice(5, 12),
+                                              duration: 20000,
                                           })}
                                 </div>
                             </section>
