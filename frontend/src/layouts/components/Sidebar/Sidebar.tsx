@@ -5,10 +5,6 @@ import { faBars, faCartShopping, faMagnifyingGlass, faXmark } from "@fortawesome
 import styles from "./Sidebar.module.scss";
 import { ModalContextType } from "~/types/contexts/ModalContextType";
 
-import Avatar from "~/components/Avatar";
-import { ClipLoader } from "react-spinners";
-import ModalContext from "~/contexts/components/ModalContext";
-
 const cx = classNames.bind(styles);
 
 type Props = {
