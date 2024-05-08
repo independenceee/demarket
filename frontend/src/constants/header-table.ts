@@ -1,12 +1,11 @@
 import { HeaderTableType } from "~/types/GenericsType";
 
 const historyTransactions: HeaderTableType[] = [
-    { title: "Block Time" },
+    { title: "Date Time" },
     { title: "Transaction Hash" },
     { title: "Action" },
-    { title: "Amount" },
-    { title: "Fees" },
-    { title: "Status" },
+    { title: "Price" },
+    { title: "Address" },
 ];
 
 const historyRewards: HeaderTableType[] = [

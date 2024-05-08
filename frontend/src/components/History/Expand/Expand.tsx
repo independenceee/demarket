@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 import styles from "./Expand.module.scss";
 import { TransactionHistoryType } from "~/types/GenericsType";
 import Link from "next/link";
+import { convertTimestampToDateObject } from "~/utils/utils";
 
 type Props = {
     className?: string;
@@ -22,8 +23,8 @@ const Expand = function ({ className, data }: Props) {
         <div className={cx("wrapper")} onClick={handleActiveAccordion}>
             <div>
                 <header className={cx("header", className)}>
-                    <span className={cx("action-type")}>{data.type}</span>
-                    {data.amount} ₳
+                    <span className={cx("action-type")}>{data.status}</span>
+                    {+data.price / 1000000} ₳
                     <div
                         className={cx("icon", {
                             active: toggle,
@@ -38,13 +39,13 @@ const Expand = function ({ className, data }: Props) {
                     <div className={cx("left-content")}>
                         <div className={cx("date")}>
                             <div className={cx("title-wrapper")}>
-                                <span>Date</span>
+                                <span className={cx("title")}>Date</span>
                             </div>
-                            <div className={cx("value")}>{data.blockTime}</div>
+                            <div className={cx("value")}>{convertTimestampToDateObject(data.date)}</div>
                         </div>
                         <div className={cx("tx-hash")}>
                             <div className={cx("title-wrapper")}>
-                                <span>Tx hash</span>
+                                <span className={cx("title")}>Tx hash</span>
                             </div>
                             <div className={cx("value")}>
                                 <Link
@@ -61,13 +62,13 @@ const Expand = function ({ className, data }: Props) {
                     <div className={cx("right-content")}>
                         <div className={cx("received-or-payed")}>
                             <div className={cx("title-wrapper")}>
-                                <span>Fee</span>
+                                <span className={cx("title")}>Price</span>
                             </div>
-                            <div className={cx("value")}>{data.fee} ₳</div>
+                            <div className={cx("value")}>{+data.price / 1000000} ₳</div>
                         </div>
                         <div className={cx("status")}>
                             <div className={"title-wrapper"}>
-                                <span>Status</span>
+                                <span className={cx("title")}>Action</span>
                             </div>
                             <div className={cx("value")}>{data.status}</div>
                         </div>

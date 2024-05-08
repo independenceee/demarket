@@ -65,11 +65,13 @@ const History = ({ className, isLoading, data, isError, page, setPage }: Props) 
                         <>
                             <div className={cx("table-wrapper", "irresponsive")}>
                                 <Table
+                                    center
                                     titles={historyTransactions}
                                     className={cx("order-table")}
                                     data={data?.histories as TransactionHistoryType[]}
                                 />
                                 <Pagination
+                                    classNameText={cx("pagination")}
                                     setPage={setPage}
                                     page={page}
                                     totalItems={data.totalItems}

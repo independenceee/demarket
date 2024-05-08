@@ -14,6 +14,9 @@
     margin-right: 6px;
 }
 
+.pagination {
+    color: var(--text-color);
+}
 .order-loading {
     width: 36px;
     height: 36px;
@@ -36,6 +39,7 @@
 
 .responsive {
     display: none;
+    background-image: linear-gradient(180deg, #373c62 0, #3d4369);
 }
 @media screen and (max-width: 1024px) {
     .wrapper {

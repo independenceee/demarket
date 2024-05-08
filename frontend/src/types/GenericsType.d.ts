@@ -47,12 +47,11 @@ export type ProductType = {
 };
 
 export type TransactionHistoryType = {
-    type: string;
+    address: string;
     txHash: string;
-    amount: number;
+    date: number;
     status: string;
-    fee: number;
-    blockTime: string;
+    price: string;
 };
 
 export type HeaderTableType = {

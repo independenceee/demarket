@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import styles from "./Table.module.scss";
 import Link from "next/link";
 import { HeaderTableType, TransactionHistoryType } from "~/types/GenericsType";
-import { isTransactionHistoryType } from "~/utils/utils";
+import { convertTimestampToDateObject, isTransactionHistoryType } from "~/utils/utils";
 
 const cx = classNames.bind(styles);
 
@@ -20,16 +20,15 @@ const Table = function ({ className, data, titles, center = false }: Props) {
         if (isTransactionHistoryType(data)) {
             return data.map((item, index) => (
                 <tr className={cx("row")} key={index}>
-                    <td className={cx("row-item", "date")}>{item.blockTime}</td>
+                    <td className={cx("row-item", "date")}>{convertTimestampToDateObject(item.date)}</td>
                     <td className={cx("row-item", "txhash")}>
                         <Link href={""} target="_blanke">
                             {item.txHash}
                         </Link>
                     </td>
-                    <td className={cx("row-item", "action")}>{item.type}</td>
-                    <td className={cx("row-item", "amount")}>{item.amount}</td>
-                    <td className={cx("row-item", "fee")}>{item.fee}</td>
-                    <td className={cx("row-item", "status")}>{item.status}</td>
+                    <td className={cx("row-item", "action")}>{item.status}</td>
+                    <td className={cx("row-item", "amount")}>{+item.price / 1000000} ₳</td>
+                    <td className={cx("row-item", "txhash")}>{item.address}</td>
                 </tr>
             ));
         }

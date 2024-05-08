@@ -18,7 +18,7 @@
 }
 
 .table-header-item {
-    color: #fff;
+    color: var(--text-color);
     font-size: 18px;
     font-weight: 700;
     text-align: left;
@@ -42,4 +42,5 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: var(--text-color);
 }

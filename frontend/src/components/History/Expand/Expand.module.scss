@@ -27,6 +27,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     padding-right: 32px;
+    color: hsla(0, 0%, 100%, 0.6) !important;
 }
 
 .header {
@@ -34,7 +35,7 @@
     align-items: center;
     display: flex;
     font-size: 14px;
-    padding: 32px 64px 24px 32px;
+    padding: 32px 64px 32px 24px;
     justify-content: space-between;
     position: relative;
     background-image: linear-gradient(180deg, #373c62 0, #424a7b);
@@ -42,6 +43,7 @@
     transition: all 0.3s ease-out;
     z-index: 10;
     cursor: pointer;
+    color: hsla(0, 0%, 100%, 0.6) !important;
 }
 
 .expanded-content {
@@ -71,14 +73,17 @@
 }
 
 .title-wrapper {
-    font-weight: 600;
     margin-bottom: 4px;
+}
+
+.title {
+    font-weight: 600;
     color: hsla(0, 0%, 100%, 0.7);
 }
 
 .value {
     padding-top: 8px;
-    color: hsla(0, 0%, 100%, 0.6);
+    color: hsla(0, 0%, 100%, 0.6) !important;
 }
 
 .date,

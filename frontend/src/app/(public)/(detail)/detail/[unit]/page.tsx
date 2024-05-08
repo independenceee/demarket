@@ -53,7 +53,7 @@ const Detail = function ({}: Props) {
     } = useQuery({
         queryKey: ["Histories", page],
         queryFn: () => get(`/histories?policyId=${policyId}&assetName=${assetName}&page=${page}&pageSize=12`),
-        enabled: Boolean(policyId) || Boolean(assetName),
+        enabled: Boolean(policyId) && Boolean(assetName),
     });
     console.log(histories);
 
@@ -143,7 +143,7 @@ const Detail = function ({}: Props) {
                     <History
                         page={page}
                         setPage={setPage}
-                        data={histories?.histories}
+                        data={histories}
                         isError={isErrorHistories}
                         isLoading={isLoadingHistories}
                         className={cx("orders")}

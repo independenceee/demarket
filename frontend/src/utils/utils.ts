@@ -13,5 +13,5 @@ export const convertTimestampToDateObject = (timestamp: number) => {
 
 export const isTransactionHistoryType = (data: TransactionHistoryType[]): data is TransactionHistoryType[] => {
     const item = data[0];
-    return Array.isArray(data) && "blockTime" in item && "txHash" in item && "fee" in item;
+    return Array.isArray(data) && "date" in item && "txHash" in item && "status" in item;
 };
