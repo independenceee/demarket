@@ -7,6 +7,28 @@ class AccountService {
         this.prisma = new PrismaClient();
     }
 
+    async getAccounts({ walletAddress, page, pageSize }: { walletAddress: string; page: number; pageSize: number }) {
+        const currentPage = Math.max(Number(page || 1), 1);
+        const currentAccount = await this.prisma.account.findUnique({ where: { wallet_address: walletAddress } });
+        if (!currentAccount) return [];
+        const otherAccounts = await this.prisma.account.findMany({
+            where: { wallet_address: { not: walletAddress }, followers: { none: { follower_id: currentAccount.id } } },
+            take: pageSize,
+            skip: (currentPage - 1) * pageSize,
+        });
+        const followingIds = await this.prisma.follows.findMany({
+            where: { follower_id: currentAccount.id },
+            select: { following_id: true },
+        });
+        const followingIdsSet = new Set(followingIds.map((entry) => entry.following_id));
+        const accounts = otherAccounts.map((account) => ({
+            ...account,
+            isFollowed: followingIdsSet.has(account.id),
+        }));
+        const totalPage = Math.ceil(accounts.length / pageSize);
+        return { accounts, totalPage };
+    }
+
     async getTrendings() {
         const tredings = await this.prisma.account.findMany({
             orderBy: { created_at: "asc" },
@@ -27,8 +49,14 @@ class AccountService {
             const mint = account.current_products.length;
             const sell = account.sell_products.length;
 
-            return {};
+            return {
+                ...account,
+                mint,
+                sell,
+            };
         });
+
+        return accounts;
     }
 
     async getFollowings({ accountId, page, pageSize }: { accountId: string; page: number; pageSize: number }) {
@@ -72,10 +100,40 @@ class AccountService {
         if (existAccount) return existAccount;
 
         const account = await this.prisma.account.create({
-            data: { wallet_address: walletAddress },
+            data: {
+                stake_address: stakeAddress,
+                wallet_address: walletAddress,
+            },
         });
 
         return account;
+    }
+
+    async getAccount({ walletAddress, stakeAddress }: { walletAddress: string; stakeAddress?: string }) {
+        const existAccount = await this.prisma.account.findFirst({
+            where: {
+                wallet_address: walletAddress,
+            },
+        });
+
+        if (existAccount) return existAccount;
+
+        const account = await this.prisma.account.create({
+            data: {
+                stake_address: stakeAddress,
+                wallet_address: walletAddress,
+            },
+        });
+
+        return account;
+    }
+
+    async deleteAccount({ walletAddress }: { walletAddress: string }) {
+        await this.prisma.account.delete({
+            where: {
+                wallet_address: walletAddress,
+            },
+        });
     }
 
     async updateAccount({

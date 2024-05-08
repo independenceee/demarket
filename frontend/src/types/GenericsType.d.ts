@@ -3,6 +3,7 @@ export type WalletType = {
     image: string;
     balance?: number;
     address?: string;
+    stakeKey?: string;
     downloadApi?: string;
     api: () => Promise<any> | any;
     checkApi: () => Promise<any> | any;
@@ -12,6 +13,21 @@ export type NetworkType = {
     networkName: Network;
     url: string;
     apiKey: string;
+};
+
+export type AccountType = {
+    id?: string;
+    created_at?: string;
+    updated_at?: string;
+    wallet_address?: string;
+    stake_address?: string;
+    username?: string;
+    description?: string;
+    avatar?: string;
+    email?: string;
+    telegram?: string;
+    linkedin?: string;
+    twitter?: string;
 };
 
 export type ProductType = {
@@ -25,7 +41,7 @@ export type ProductType = {
     sellerAddress?: string;
     currentAddress?: string;
     authorAddress?: string;
-    
+
     image?: string;
     type?: string;
 };

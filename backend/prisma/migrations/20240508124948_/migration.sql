@@ -17,41 +17,24 @@ CREATE TABLE "Account" (
 );
 
 -- CreateTable
-CREATE TABLE "Nft" (
+CREATE TABLE "Product" (
     "id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "policy_id" TEXT NOT NULL,
     "asset_name" TEXT NOT NULL,
-    "fingerprint" TEXT NOT NULL,
-    "price" TEXT NOT NULL,
-    "royalties" TEXT NOT NULL,
-    "author_address" TEXT NOT NULL,
-    "seller_address" TEXT NOT NULL,
-    "current_address" TEXT NOT NULL,
-    "author_stake_address" TEXT NOT NULL,
-    "seller_stake_address" TEXT NOT NULL,
-    "current_stake_address" TEXT NOT NULL,
-    "medadata" TEXT NOT NULL,
+    "fingerprint" TEXT,
+    "price" TEXT,
+    "royalties" TEXT,
+    "author_address" TEXT,
+    "seller_address" TEXT,
+    "current_address" TEXT,
+    "author_stake_address" TEXT,
+    "seller_stake_address" TEXT,
+    "current_stake_address" TEXT,
+    "medadata" TEXT,
 
-    CONSTRAINT "Nft_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Trending" (
-    "id" TEXT NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
-    "policy_id" TEXT NOT NULL,
-    "asset_name" TEXT NOT NULL,
-    "author_address" TEXT NOT NULL,
-    "seller_address" TEXT NOT NULL,
-    "current_address" TEXT NOT NULL,
-    "author_stake_address" TEXT NOT NULL,
-    "seller_stake_address" TEXT NOT NULL,
-    "current_stake_address" TEXT NOT NULL,
-
-    CONSTRAINT "Trending_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -83,9 +66,9 @@ CREATE TABLE "Likes" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "account_id" TEXT NOT NULL,
-    "nft_id" TEXT NOT NULL,
+    "product_id" TEXT NOT NULL,
 
-    CONSTRAINT "Likes_pkey" PRIMARY KEY ("account_id","nft_id")
+    CONSTRAINT "Likes_pkey" PRIMARY KEY ("account_id","product_id")
 );
 
 -- CreateTable
@@ -93,9 +76,9 @@ CREATE TABLE "Comments" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "account_id" TEXT NOT NULL,
-    "nft_id" TEXT NOT NULL,
+    "product_id" TEXT NOT NULL,
 
-    CONSTRAINT "Comments_pkey" PRIMARY KEY ("account_id","nft_id")
+    CONSTRAINT "Comments_pkey" PRIMARY KEY ("account_id","product_id")
 );
 
 -- CreateTable
@@ -103,19 +86,19 @@ CREATE TABLE "Like" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "account_id" TEXT NOT NULL,
-    "nft_id" TEXT NOT NULL,
+    "product_id" TEXT NOT NULL,
 
-    CONSTRAINT "Like_pkey" PRIMARY KEY ("account_id","nft_id")
+    CONSTRAINT "Like_pkey" PRIMARY KEY ("account_id","product_id")
 );
 
 -- CreateTable
-CREATE TABLE "CartNft" (
+CREATE TABLE "Cartproduct" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
     "cart_id" TEXT NOT NULL,
-    "nft_id" TEXT NOT NULL,
+    "product_id" TEXT NOT NULL,
 
-    CONSTRAINT "CartNft_pkey" PRIMARY KEY ("cart_id","nft_id")
+    CONSTRAINT "Cartproduct_pkey" PRIMARY KEY ("cart_id","product_id")
 );
 
 -- CreateTable
@@ -185,13 +168,13 @@ CREATE UNIQUE INDEX "Follows_follower_id_following_id_key" ON "Follows"("followe
 CREATE UNIQUE INDEX "Cart_account_id_key" ON "Cart"("account_id");
 
 -- AddForeignKey
-ALTER TABLE "Nft" ADD CONSTRAINT "Nft_current_address_fkey" FOREIGN KEY ("current_address") REFERENCES "Account"("wallet_address") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Product" ADD CONSTRAINT "Product_current_address_fkey" FOREIGN KEY ("current_address") REFERENCES "Account"("wallet_address") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Nft" ADD CONSTRAINT "Nft_seller_address_fkey" FOREIGN KEY ("seller_address") REFERENCES "Account"("wallet_address") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Product" ADD CONSTRAINT "Product_seller_address_fkey" FOREIGN KEY ("seller_address") REFERENCES "Account"("wallet_address") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Nft" ADD CONSTRAINT "Nft_author_address_fkey" FOREIGN KEY ("author_address") REFERENCES "Account"("wallet_address") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Product" ADD CONSTRAINT "Product_author_address_fkey" FOREIGN KEY ("author_address") REFERENCES "Account"("wallet_address") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Follows" ADD CONSTRAINT "Follows_follower_id_fkey" FOREIGN KEY ("follower_id") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -203,25 +186,25 @@ ALTER TABLE "Follows" ADD CONSTRAINT "Follows_following_id_fkey" FOREIGN KEY ("f
 ALTER TABLE "Likes" ADD CONSTRAINT "Likes_account_id_fkey" FOREIGN KEY ("account_id") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Likes" ADD CONSTRAINT "Likes_nft_id_fkey" FOREIGN KEY ("nft_id") REFERENCES "Nft"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Likes" ADD CONSTRAINT "Likes_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Comments" ADD CONSTRAINT "Comments_account_id_fkey" FOREIGN KEY ("account_id") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Comments" ADD CONSTRAINT "Comments_nft_id_fkey" FOREIGN KEY ("nft_id") REFERENCES "Nft"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Comments" ADD CONSTRAINT "Comments_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Like" ADD CONSTRAINT "Like_account_id_fkey" FOREIGN KEY ("account_id") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Like" ADD CONSTRAINT "Like_nft_id_fkey" FOREIGN KEY ("nft_id") REFERENCES "Nft"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Like" ADD CONSTRAINT "Like_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "CartNft" ADD CONSTRAINT "CartNft_cart_id_fkey" FOREIGN KEY ("cart_id") REFERENCES "Cart"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Cartproduct" ADD CONSTRAINT "Cartproduct_cart_id_fkey" FOREIGN KEY ("cart_id") REFERENCES "Cart"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "CartNft" ADD CONSTRAINT "CartNft_nft_id_fkey" FOREIGN KEY ("nft_id") REFERENCES "Nft"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Cartproduct" ADD CONSTRAINT "Cartproduct_product_id_fkey" FOREIGN KEY ("product_id") REFERENCES "Product"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Cart" ADD CONSTRAINT "Cart_account_id_fkey" FOREIGN KEY ("account_id") REFERENCES "Account"("id") ON DELETE CASCADE ON UPDATE CASCADE;
