@@ -34,7 +34,7 @@ const Marketplace = function ({}: Props) {
                         <div className={cx("content-left-inner")} data-aos="fade-right" data-aos-duration="1000">
                             <Search />
                             <Category />
-                            <Sort sortBySearchParam="" setSortBySearchParam={null!} />
+                            <Sort />
                             <Verify />
                         </div>
                     </div>

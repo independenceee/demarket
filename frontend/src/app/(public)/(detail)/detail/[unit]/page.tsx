@@ -129,8 +129,8 @@ const Detail = function ({}: Props) {
                             <button onClick={handleRefund}>Refund</button>
 
                             <div className={cx("detail")}>
-                                <Card title="NftItem" icon={icons.glass} />
-                                <Card title="NftItem" icon={icons.glass} />
+                                {/* <Card title="NftItem" icon={icons.glass} />
+                                <Card title="NftItem" icon={icons.glass} /> */}
                             </div>
                         </div>
                     </div>
