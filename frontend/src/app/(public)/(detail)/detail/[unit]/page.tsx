@@ -1,15 +1,12 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import React, { useState, useEffect, useContext, ChangeEvent } from "react";
+import React, { useState, useContext, ChangeEvent } from "react";
 import classNames from "classnames/bind";
-import Skeleton from "react-loading-skeleton";
 import Container from "~/components/Product/Container";
 import Link from "next/link";
 import styles from "./Detail.module.scss";
 import Title from "~/components/Title";
-import Card from "~/components/Card";
-import icons from "~/assets/icons";
 import History from "~/components/History";
 import { get } from "~/utils/http-request";
 import { useQuery } from "@tanstack/react-query";
@@ -154,47 +151,55 @@ const Detail = function ({}: Props) {
                                 <div className={cx("people__wrapper")}>
                                     <section className={cx("people__container")}>
                                         <header className={cx("people__header")}>Owner</header>
-                                        <Link
-                                            href={`/account/${product?.metadata?.sellerAddress}`}
-                                            className={cx("people__content")}
-                                        >
-                                            <div className={cx("people__avatar")}>
-                                                <Image
-                                                    className={cx("people__avatar--image")}
-                                                    src={images.user}
-                                                    alt=""
-                                                />
-                                            </div>
-                                            <div className={cx("people__information")}>
-                                                <h3 className={cx("people__name")}>{product?.stakekeySellerAddress}</h3>
-                                                <div className={cx("people__address")}>
-                                                    <p>{product?.sellerAddress}</p>
-                                                    <Copy value={product?.sellerAddress} />
+                                        <div className={cx("address__copy")}>
+                                            <Link
+                                                href={`/account/${product?.metadata?.sellerAddress}`}
+                                                className={cx("people__content")}
+                                            >
+                                                <div className={cx("people__avatar")}>
+                                                    <Image
+                                                        className={cx("people__avatar--image")}
+                                                        src={images.user}
+                                                        alt=""
+                                                    />
                                                 </div>
-                                            </div>
-                                        </Link>
+                                                <div className={cx("people__information")}>
+                                                    <h3 className={cx("people__name")}>
+                                                        {product?.stakekeySellerAddress}
+                                                    </h3>
+                                                    <div className={cx("people__address")}>
+                                                        <p>{product?.sellerAddress}</p>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                            <Copy value={product?.sellerAddress} />
+                                        </div>
                                     </section>
                                     <section className={cx("people__container")}>
                                         <header className={cx("people__header")}>Author</header>
-                                        <Link
-                                            href={`/account/${product?.authorAddress}`}
-                                            className={cx("people__content")}
-                                        >
-                                            <div className={cx("people__avatar")}>
-                                                <Image
-                                                    className={cx("people__avatar--image")}
-                                                    src={images.user}
-                                                    alt=""
-                                                />
-                                            </div>
-                                            <div className={cx("people__information")}>
-                                                <h3 className={cx("people__name")}>{product?.stakekeyAuthorAddress}</h3>
-                                                <div className={cx("people__address")}>
-                                                    <p>{product?.authorAddress}</p>
-                                                    <Copy value={product?.authorAddress} />
+                                        <div className={cx("address__copy")}>
+                                            <Link
+                                                href={`/account/${product?.authorAddress}`}
+                                                className={cx("people__content")}
+                                            >
+                                                <div className={cx("people__avatar")}>
+                                                    <Image
+                                                        className={cx("people__avatar--image")}
+                                                        src={images.user}
+                                                        alt=""
+                                                    />
                                                 </div>
-                                            </div>
-                                        </Link>
+                                                <div className={cx("people__information")}>
+                                                    <h3 className={cx("people__name")}>
+                                                        {product?.stakekeyAuthorAddress}
+                                                    </h3>
+                                                    <div className={cx("people__address")}>
+                                                        <p>{product?.authorAddress}</p>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                            <Copy value={product?.authorAddress} />
+                                        </div>
                                     </section>
                                 </div>
                             </section>
@@ -243,7 +248,7 @@ const Detail = function ({}: Props) {
                                             placeholder="Enter the price ..."
                                         />
 
-                                        <Button className={cx("search-btn")} onClick={handleSell}>
+                                        <Button className={cx("sell-btn")} onClick={handleSell}>
                                             {true ? (
                                                 "Sell asset"
                                             ) : (

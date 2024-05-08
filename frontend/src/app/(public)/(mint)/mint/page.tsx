@@ -1,10 +1,7 @@
 "use client";
 import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import classNames from "classnames/bind";
-import axios from "axios";
 import Image from "next/image";
-import { ClipLoader } from "react-spinners";
-import { Button } from "@mui/material";
 import { AddIcon, TrashIcon } from "~/components/Icons";
 
 import styles from "./Mint.module.scss";
@@ -15,6 +12,7 @@ import { toast } from "react-toastify";
 import { SmartContractContextType } from "~/types/contexts/SmartContractContextType";
 import SmartContractContext from "~/contexts/components/SmartContractContext";
 import pinata from "~/services/pinata";
+import Button from "~/components/Button";
 const cx = classNames.bind(styles);
 
 function convertMetadataToObj(metadataArray: any) {
@@ -220,9 +218,8 @@ const MintPage = function ({}: Props) {
                         <div className={cx("content")}>
                             <div className={cx("nft-wrapper")}>
                                 <div className={cx("image-container")}>
-                                    <Image
-                                        src={""}
-                                        // src={imagePath ? imagePath : images.noImage}
+                                    <img
+                                        src={imagePath ? imagePath : images.noImage}
                                         alt="NFT IMAGE"
                                         className={cx("image")}
                                     />
@@ -272,7 +269,7 @@ const MintPage = function ({}: Props) {
                         <div className={cx("nft-wrapper")}>
                             <div className={cx("image-container")}>
                                 <Image
-                                    src={imagePath ? imagePath : ""}
+                                    src={imagePath ? imagePath : images.noImage}
                                     width={0}
                                     height={0}
                                     alt=""

@@ -25,6 +25,8 @@ const images = {
     banner: require("./banner.jpg"),
     logo: require("./logo.jpg"),
     user: require("./user.jpg"),
+
+    noImage: require("./no-image.webp"),
 };
 
 export default images;

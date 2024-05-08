@@ -11,13 +11,13 @@
     cursor: pointer;
     display: flex;
     font-size: 16px;
-    height: 56px;
+    // height: 56px;
     justify-content: center;
     line-height: 1;
     margin: 0;
     min-width: 25rem;
     outline: 0;
-    padding: 2.4rem 3.2rem;
+    padding: 1.2rem 3.2rem !important;
     transition: all 0.2s ease-out;
     font-family: Poppins, sans-serif;
     white-space: nowrap;
@@ -56,7 +56,7 @@
 /* connected wallet begin */
 .connected-wallet-container {
     border-radius: 12px;
-    color: var(--text-color);
+    // color: var(--white-color);
     cursor: pointer;
     display: flex;
     font-size: 14px;
@@ -103,7 +103,7 @@
     width: 340px;
     background: linear-gradient(180deg, #1d2345, #3a426f);
     border-radius: 0 0 12px 12px;
-    color: var(--text-color);
+    color: var(--white-color);
     font-size: 14px;
     z-index: 1;
 }
@@ -236,14 +236,10 @@
 /* connect wallet begin */
 
 .connect-wallet-wrapper {
-    background-color: var(--white-color);
-    border-radius: 0.8rem;
     color: var(--text-color);
     display: flex;
     flex-direction: column;
-    max-height: 80vh;
     max-width: 57rem;
-    padding: 3.6rem 4.4rem;
     position: relative;
     width: 100%;
 }

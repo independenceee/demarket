@@ -131,6 +131,11 @@
     font-size: 1.6rem;
 }
 
+.address__copy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .stat-button {
     align-items: center;
     background: transparent;
@@ -752,13 +757,20 @@
     justify-content: space-between;
     width: 100%;
 }
-
+.sell-btn {
+    padding: 1rem 1.6rem !important;
+    font-size: 1.4rem;
+}
 .people__container {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
     flex: 1;
+
+    &:nth-child(2) {
+        margin-left: 32px;
+    }
 }
 
 .people__header {
