@@ -21,6 +21,7 @@ const AccountProvider = function ({ children }: Props) {
     const [loading, setLoading] = useState<boolean>(false);
     const [account, setAccount] = useState<AccountType>(null!);
     const { wallet } = useContext<WalletContextType>(WalletContext);
+
     useEffect(() => {
         const fetchAccountFromAddress = async function () {
             setLoading(true);
@@ -29,8 +30,6 @@ const AccountProvider = function ({ children }: Props) {
                 stakeAddress: wallet?.stakeKey,
             });
 
-            console.log(wallet);
-            console.log(account);
             setAccount(account);
             toast.success("Login account successfully.");
 
@@ -40,7 +39,6 @@ const AccountProvider = function ({ children }: Props) {
             fetchAccountFromAddress();
         }
     }, [wallet?.address]);
-    console.log(wallet);
 
     return <AccountContext.Provider value={{ loading }}>{children}</AccountContext.Provider>;
 };
