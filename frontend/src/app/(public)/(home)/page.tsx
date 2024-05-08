@@ -62,7 +62,7 @@ const Home = function ({}: Props) {
                                                   </div>
                                               );
                                           })
-                                        : data.products.slice(0, 5).map(function (product: any, index: number) {
+                                        : data?.products.slice(0, 5).map(function (product: any, index: number) {
                                               return (
                                                   <Slider
                                                       url={product.metadata.image}
@@ -80,7 +80,7 @@ const Home = function ({}: Props) {
                                         ? new Array(10).fill(null).map(function (value: any, index: number) {
                                               return <></>;
                                           })
-                                        : data.products.slice(5, 12).map(function (product: any, index: number) {
+                                        : data?.products.slice(5, 12).map(function (product: any, index: number) {
                                               return (
                                                   <Slider
                                                       url={product.metadata.image}
