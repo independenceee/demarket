@@ -22,8 +22,6 @@ const Marketplace = function ({}: Props) {
         queryFn: () => get(`/marketplaces?page=${page}&pageSize=12`),
     });
 
-    console.log(data);
-
     return (
         <div className={cx("wrapper")} data-aos="fade-down">
             <title>Marketplace - Demarket</title>
@@ -44,6 +42,7 @@ const Marketplace = function ({}: Props) {
                             page={page}
                             loading={isLoading}
                             totalPage={data?.totalPage}
+                            setPage={setPage}
                         />
                     </div>
                 </section>

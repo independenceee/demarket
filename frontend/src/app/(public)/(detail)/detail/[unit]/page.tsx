@@ -90,6 +90,9 @@ const Detail = function ({}: Props) {
             assetName: product.assetName,
         });
     };
+    console.log(product?.currentAddress);
+    console.log(wallet?.address);
+    console.log(product?.currentAddress === wallet?.address);
 
     return (
         <main className={cx("wrapper")} data-aos="fade-down">
@@ -141,11 +144,11 @@ const Detail = function ({}: Props) {
                                 </div>
                                 <div className={cx("description")}>
                                     <span>Fingerprint:</span>
-                                    {product?.metadata?.fingerprint}
+                                    {product?.fingerprint}
                                     <Copy value={product?.fingerprint} />
                                 </div>
                                 <div className={cx("description")}>
-                                    <span>PolicyId:</span> {product?.metadata?.policyId}
+                                    <span>PolicyId:</span> {product?.policyId}
                                     <Copy value={product?.policyId} />
                                 </div>
                                 <div className={cx("people__wrapper")}>
@@ -237,7 +240,7 @@ const Detail = function ({}: Props) {
                                 </section>
                             )}
 
-                            {product?.currentAddress === wallet?.address && !product?.price ? (
+                            {product?.sellerAddress?.trim() === wallet?.address?.trim() && !product?.price ? (
                                 <section className={cx("price__wrapper--input")}>
                                     <article className={cx("price__container--input")}>
                                         <input
@@ -262,6 +265,7 @@ const Detail = function ({}: Props) {
                     </main>
                 </section>
                 <section>
+                    <Title title="History" />
                     <History
                         page={page}
                         setPage={setPage}

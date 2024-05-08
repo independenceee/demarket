@@ -39,7 +39,8 @@
 
 .responsive {
     display: none;
-    background-image: linear-gradient(180deg, #373c62 0, #3d4369);
+    background-image: #fff;
+    color: var(--text-color);
 }
 @media screen and (max-width: 1024px) {
     .wrapper {

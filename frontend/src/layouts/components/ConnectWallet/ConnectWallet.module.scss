@@ -236,10 +236,14 @@
 /* connect wallet begin */
 
 .connect-wallet-wrapper {
+    background-color: #fff;
+    border-radius: 0.8rem;
     color: var(--text-color);
     display: flex;
     flex-direction: column;
+    max-height: 80vh;
     max-width: 57rem;
+    padding: 3.6rem 4.4rem;
     position: relative;
     width: 100%;
 }
@@ -256,7 +260,7 @@
     border-radius: 0.8rem;
 
     &:hover {
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.05);
     }
 }
 
@@ -315,6 +319,7 @@
 
 .connect-wallet-input-link {
     margin-left: 0.3rem;
+    color: var(--text-color);
     text-decoration: underline;
 }
 
