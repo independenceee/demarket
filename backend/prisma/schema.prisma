@@ -27,12 +27,12 @@ model Account {
   Comments         Comments[]
   followers        Follows[]    @relation("following")
   following        Follows[]    @relation("follower")
-  current_products Product[]    @relation("current")
-  author_products  Product[]    @relation("author")
-  sell_products    Product[]    @relation("seller")
+  current_products product[]    @relation("current")
+  author_products  product[]    @relation("author")
+  sell_products    product[]    @relation("seller")
 }
 
-model Product {
+model product {
   id                    String        @id @default(uuid())
   created_at            DateTime      @default(now())
   updated_at            DateTime      @updatedAt
@@ -52,24 +52,12 @@ model Product {
   seller                Account?      @relation("seller", fields: [seller_address], references: [wallet_address])
   author                Account?      @relation("author", fields: [author_address], references: [wallet_address])
   likes                 Like[]
-  cart_products         CartProduct[]
+  cart_products         Cartproduct[]
   Likes                 Likes[]
   Comments              Comments[]
 }
 
-model Trending {
-  id                    String   @id @default(uuid())
-  created_at            DateTime @default(now())
-  updated_at            DateTime @updatedAt
-  policy_id             String   @db.Text
-  asset_name            String   @db.Text
-  author_address        String   @db.Text
-  seller_address        String   @db.Text
-  current_address       String   @db.Text
-  author_stake_address  String   @db.Text
-  seller_stake_address  String   @db.Text
-  current_stake_address String   @db.Text
-}
+
 
 model Banner {
   id          String   @id @default(uuid())
@@ -99,10 +87,10 @@ model Likes {
   updatedAt  DateTime @updatedAt
   account_id String   @db.Text
   account    Account  @relation(fields: [account_id], references: [id])
-  Product_id String
-  Product    Product  @relation(fields: [Product_id], references: [id])
+  product_id String
+  product    product  @relation(fields: [product_id], references: [id])
 
-  @@id([account_id, Product_id])
+  @@id([account_id, product_id])
 }
 
 model Comments {
@@ -112,10 +100,10 @@ model Comments {
   account_id String  @db.Text
   account    Account @relation(fields: [account_id], references: [id])
 
-  Product_id String
-  Product    Product @relation(fields: [Product_id], references: [id])
+  product_id String
+  product    product @relation(fields: [product_id], references: [id])
 
-  @@id([account_id, Product_id])
+  @@id([account_id, product_id])
 }
 
 model Like {
@@ -123,24 +111,24 @@ model Like {
   updated_at DateTime @updatedAt
 
   account_id String @db.Text
-  Product_id String @db.Text
+  product_id String @db.Text
 
   account Account @relation(fields: [account_id], references: [id])
-  Product Product @relation(fields: [Product_id], references: [id])
+  product product @relation(fields: [product_id], references: [id])
 
-  @@id([account_id, Product_id])
+  @@id([account_id, product_id])
 }
 
-model CartProduct {
+model Cartproduct {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   cart_id    String  @db.Text
   cart       Cart    @relation(fields: [cart_id], references: [id], onDelete: Cascade)
-  Product_id String  @db.Text
-  Product    Product @relation(fields: [Product_id], references: [id], onDelete: Cascade)
+  product_id String  @db.Text
+  product    product @relation(fields: [product_id], references: [id], onDelete: Cascade)
 
-  @@id([cart_id, Product_id])
+  @@id([cart_id, product_id])
 }
 
 model Cart {
@@ -150,7 +138,7 @@ model Cart {
 
   account_id String        @unique
   account    Account       @relation(fields: [account_id], references: [id], onDelete: Cascade)
-  Products   CartProduct[]
+  products   Cartproduct[]
 }
 
 model Category {

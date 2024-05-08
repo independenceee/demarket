@@ -1,8 +1,8 @@
 import { Router } from "express";
-import marketplacesController from "../../controllers/marketplaces.controller";
+import historiesController from "../../controllers/version2/histories.controller";
 
 const router = Router();
 
-router.route("/").get(marketplacesController.getAssets);
+router.route("/").get(historiesController.getHistories);
 
 export default router;
