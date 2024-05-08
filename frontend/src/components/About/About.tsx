@@ -16,7 +16,7 @@ const About = function () {
                     <div className={cx("video-iframe-wrapper")}>
                         <iframe
                             className={cx("video-iframe")}
-                            src="https://www.youtube.com/embed/DCWY93O_QAU"
+                            src="https://www.youtube.com/embed/nr_J8rcimTY"
                             title="Daultarget - Mục Tiêu Kép"
                             frameBorder={"none"}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

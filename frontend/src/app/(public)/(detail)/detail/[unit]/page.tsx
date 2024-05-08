@@ -51,9 +51,10 @@ const Detail = function ({}: Props) {
         isError: isErrorHistories,
     } = useQuery({
         queryKey: ["Histories", page],
-        queryFn: () => get(`/products?page=${page}&pageSize=12`),
+        queryFn: () => get(`/histories?page=${page}&pageSize=12`),
         enabled: Boolean(policyId) || Boolean(assetName),
     });
+    console.log(histories);
 
     const handleSell = async function () {
         await sell({
@@ -129,8 +130,8 @@ const Detail = function ({}: Props) {
                             <button onClick={handleRefund}>Refund</button>
 
                             <div className={cx("detail")}>
-                                <Card title="NftItem" icon={icons.glass} />
-                                <Card title="NftItem" icon={icons.glass} />
+                                {/* <Card title="NftItem" icon={icons.glass} />
+                                <Card title="NftItem" icon={icons.glass} /> */}
                             </div>
                         </div>
                     </div>

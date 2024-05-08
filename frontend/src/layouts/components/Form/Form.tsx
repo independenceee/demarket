@@ -55,7 +55,7 @@ const HotDeal = function () {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                             </svg>
                         </div>
-                        <Logo className={cx("icon-increasement")} />
+                        <Logo />
                         <h2 className={cx("form-title")}>Join the waitlist</h2>
                         <p className={cx("form-subtitle")}>
                             Get first to be airdropped and notified first for any future benefits
