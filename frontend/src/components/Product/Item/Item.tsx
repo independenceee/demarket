@@ -30,7 +30,7 @@ const Item = function ({ product, index }: Props) {
         >
             <div
                 className={cx("container")}
-                onClick={() => router.push(`/detail/${product.policyId + product.assetName}`)}
+                onClick={() => router.push(`/detail/${product?.policyId + product?.assetName}`)}
             >
                 <Image type={product?.metadata?.mediaType} url={product?.metadata?.image} />
                 <section className={cx("content")}>

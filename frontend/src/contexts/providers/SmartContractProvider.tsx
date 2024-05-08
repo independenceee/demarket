@@ -22,7 +22,6 @@ import WalletContext from "~/contexts/components/WalletContext";
 import readValidator from "~/utils/read-validator";
 import { MarketplaceDatum } from "~/constants/datum";
 import { MarketplaceRedeemer } from "~/constants/redeemer";
-import { toast } from "react-toastify";
 import mintingPolicyId from "~/utils/minting-policyid";
 import { ProductType } from "~/types/GenericsType";
 
@@ -208,7 +207,7 @@ const SmartContractProvider = function ({ children }: Props) {
         lucid,
         title,
         description,
-        image,
+        url,
         mediaType,
         metadata,
     }: {
@@ -216,7 +215,7 @@ const SmartContractProvider = function ({ children }: Props) {
         title: string;
         description: string;
         mediaType: string;
-        image: string;
+        url: string;
         metadata: any;
     }): Promise<any> {
         try {
@@ -237,7 +236,7 @@ const SmartContractProvider = function ({ children }: Props) {
                         [title]: {
                             name: title,
                             description: description,
-                            image: image,
+                            image: url,
                             mediaType: mediaType,
                             ...cleanedData,
                         },

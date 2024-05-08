@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Pagination, Stack } from "@mui/material";
-import { ProductType } from "~/types/GenericsType";
 
 type Props = {
     page?: number;
