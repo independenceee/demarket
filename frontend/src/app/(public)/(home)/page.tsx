@@ -36,6 +36,7 @@ const Home = function ({}: Props) {
                             page={page}
                             loading={isLoading}
                             totalPage={data?.totalPage}
+                            setPage={setPage}
                         />
                     </article>
                 </section>
