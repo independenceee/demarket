@@ -27,12 +27,12 @@ model Account {
   Comments         Comments[]
   followers        Follows[]    @relation("following")
   following        Follows[]    @relation("follower")
-  current_products product[]    @relation("current")
-  author_products  product[]    @relation("author")
-  sell_products    product[]    @relation("seller")
+  current_products Product[]    @relation("current")
+  author_products  Product[]    @relation("author")
+  sell_products    Product[]    @relation("seller")
 }
 
-model product {
+model Product {
   id                    String        @id @default(uuid())
   created_at            DateTime      @default(now())
   updated_at            DateTime      @updatedAt
@@ -88,7 +88,7 @@ model Likes {
   account_id String   @db.Text
   account    Account  @relation(fields: [account_id], references: [id])
   product_id String
-  product    product  @relation(fields: [product_id], references: [id])
+  product    Product  @relation(fields: [product_id], references: [id])
 
   @@id([account_id, product_id])
 }
@@ -101,7 +101,7 @@ model Comments {
   account    Account @relation(fields: [account_id], references: [id])
 
   product_id String
-  product    product @relation(fields: [product_id], references: [id])
+  product    Product @relation(fields: [product_id], references: [id])
 
   @@id([account_id, product_id])
 }
@@ -114,7 +114,7 @@ model Like {
   product_id String @db.Text
 
   account Account @relation(fields: [account_id], references: [id])
-  product product @relation(fields: [product_id], references: [id])
+  product Product @relation(fields: [product_id], references: [id])
 
   @@id([account_id, product_id])
 }
@@ -126,7 +126,7 @@ model Cartproduct {
   cart_id    String  @db.Text
   cart       Cart    @relation(fields: [cart_id], references: [id], onDelete: Cascade)
   product_id String  @db.Text
-  product    product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  product    Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
 
   @@id([cart_id, product_id])
 }

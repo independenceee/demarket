@@ -53,6 +53,16 @@ class MarketplaceService {
                     select: { avatar: true, username: true },
                 });
 
+                const authorAccount = await this.prisma.account.findFirst({
+                    where: { wallet_address: sellerAddress },
+                    select: { avatar: true, username: true },
+                });
+
+                const currentAccount = await this.prisma.account.findFirst({
+                    where: { wallet_address: sellerAddress },
+                    select: { avatar: true, username: true },
+                });
+
                 return {
                     policyId: utxo.policyId,
                     assetName: utxo.assetName,
@@ -63,6 +73,7 @@ class MarketplaceService {
                     price: utxo.price,
                     royalties: utxo.royalties,
                     metadata: infomation.onchain_metadata,
+
                     sellerAccount: sellerAccount,
                 };
             }),
@@ -86,6 +97,21 @@ class MarketplaceService {
         const sellerAddress = (await this.blockfrost.txsUtxos(transactions[transactions.length - 1].tx_hash)).inputs[0].address;
         const infomation = await this.blockfrost.assetsById(policyId + assetName);
         const currentAddress = (await this.blockfrost.txsUtxos(transactions[transactions.length - 2].tx_hash)).inputs[0].address;
+
+        const sellerAccount = await this.prisma.account.findFirst({
+            where: { wallet_address: sellerAddress },
+            select: { avatar: true, username: true },
+        });
+
+        const authorAccount = await this.prisma.account.findFirst({
+            where: { wallet_address: sellerAddress },
+            select: { avatar: true, username: true },
+        });
+
+        const currentAccount = await this.prisma.account.findFirst({
+            where: { wallet_address: sellerAddress },
+            select: { avatar: true, username: true },
+        });
         if (!existUtxo) {
             return {
                 policyId: policyId,
@@ -97,6 +123,10 @@ class MarketplaceService {
                 price: null,
                 royalties: null,
                 metadata: infomation.onchain_metadata,
+                sellerAccount: sellerAccount,
+                authorAccount: authorAccount,
+
+                currentAccount: currentAccount,
             };
         }
         const product: MarketplaceDatum = Data.from<MarketplaceDatum>(existUtxo.datum!, MarketplaceDatum);
@@ -111,6 +141,10 @@ class MarketplaceService {
             price: Number(product.price),
             royalties: Number(product.royalties),
             metadata: infomation.onchain_metadata,
+
+            sellerAccount: sellerAccount,
+            authorAccount: authorAccount,
+            currentAccount: currentAccount,
         };
     }
 }

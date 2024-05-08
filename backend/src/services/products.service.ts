@@ -56,22 +56,28 @@ class ProductService {
         return { totalPage, products };
     }
 
-    async createProduct(product: Product) {
-        const infomation = await this.blockfrost.assetsById(product.policy_id + product.asset_name);
-        const transactions = await this.blockfrost.assetsTransactions(product.policy_id + product.asset_name);
+    async getMints() {}
+
+    async getSells() {}
+
+    async createProduct({ policyId, assetName, price, royalties }) {
+        const infomation = await this.blockfrost.assetsById(policyId + assetName);
+        const transactions = await this.blockfrost.assetsTransactions(policyId + assetName);
         const authorAddress = (await this.blockfrost.txsUtxos(transactions[0].tx_hash)).inputs[0].address;
         const sellerAddress = (await this.blockfrost.txsUtxos(transactions[transactions.length - 1].tx_hash)).inputs[0].address;
         const currentAddress = (await this.blockfrost.txsUtxos(transactions[transactions.length - 2].tx_hash)).inputs[0].address;
 
         return await this.prisma.product.create({
             data: {
-                policy_id: product.policy_id,
-                asset_name: product.asset_name,
-                price: product.price,
-                royalties: product.royalties,
+                policy_id: policyId,
+                asset_name: assetName,
+                price: price,
+                royalties: royalties,
                 fingerprint: infomation.fingerprint,
                 medadata: String(JSON.stringify(infomation.onchain_metadata)),
-            
+                author_address: authorAddress,
+                seller_address: sellerAddress,
+                current_address: currentAddress,
             },
         });
     }
