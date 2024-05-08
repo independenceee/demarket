@@ -14,7 +14,7 @@ type Props = {
 const Paginate = function ({ page, loading, totalPage, onChange }: Props) {
     if (!loading) {
         return (
-            <Stack spacing={2}>
+            <Stack spacing={10}>
                 <Pagination count={totalPage} shape="rounded" page={page} onChange={onChange} />
             </Stack>
         );

@@ -8,24 +8,16 @@ import styles from "./Sort.module.scss";
 
 const cx = classNames.bind(styles);
 
-type Props = {
-    sortBySearchParam: string;
-    setSortBySearchParam: React.Dispatch<React.SetStateAction<string>>;
-};
+type Props = {};
 
-const Sort = function ({ sortBySearchParam, setSortBySearchParam }: Props): React.JSX.Element {
+const Sort = function ({}: Props): React.JSX.Element {
     const [openSortBy, setOpenSortBy] = useState<boolean>(true);
 
     const handleOpenSortBy = function () {
         setOpenSortBy(!openSortBy);
     };
 
-    const handleChangeSortBy = useCallback(
-        function (event: ChangeEvent<HTMLInputElement>) {
-            setSortBySearchParam(event.target.value);
-        },
-        [sortBySearchParam],
-    );
+    const handleChangeSortBy = useCallback(function (event: ChangeEvent<HTMLInputElement>) {}, []);
 
     return (
         <section className={cx("content__filter")}>
@@ -45,7 +37,7 @@ const Sort = function ({ sortBySearchParam, setSortBySearchParam }: Props): Reac
                                 <h4 className={cx("content__filter--name")}>{sort.displayName}</h4>
                                 <input
                                     name={sort.name}
-                                    checked={sort.value === sortBySearchParam}
+                                    checked={true}
                                     value={sort.value}
                                     className={cx("content__filter--control")}
                                     onChange={handleChangeSortBy}

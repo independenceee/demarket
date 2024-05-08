@@ -27,7 +27,7 @@ export type SmartContractContextType = {
         title: string;
         description: string;
         mediaType: string;
-        image: string;
+        url: string;
         metadata: any;
     }) => Promise<any>;
 

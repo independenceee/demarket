@@ -32,30 +32,46 @@ const Category = function ({}: Props) {
 
             {openCategory && (
                 <article className={cx("content__filter--option")}>
-                    {true
-                        ? new Array(5).fill(null).map(function (category: any, index) {
-                              return (
-                                  <section key={index} className={cx("content__filter--group")}>
-                                      <SkeletonTheme highlightColor="#7000ff" />
-                                      <Skeleton width={150} height={20} />
-                                      <Skeleton width={40} height={20} />
-                                  </section>
-                              );
-                          })
-                        : new Array().slice(0, 5).map(function (category: CategoryItemType, index: number) {
-                              return (
-                                  <section key={index} className={cx("content__filter--group")}>
-                                      <h4 className={cx("content__filter--name")}>{category.name}</h4>
-                                      <input
-                                          value={category.slug}
-                                          className={cx("content__filter--control")}
-                                          type="radio"
-                                          name="category"
-                                          onChange={handleChangeCategory}
-                                      />
-                                  </section>
-                              );
-                          })}
+                    <section className={cx("content__filter--group")}>
+                        <h4 className={cx("content__filter--name")}>image</h4>
+                        <input
+                            value={"image"}
+                            className={cx("content__filter--control")}
+                            type="radio"
+                            name="category"
+                            onChange={handleChangeCategory}
+                        />
+                    </section>
+                    <section className={cx("content__filter--group")}>
+                        <h4 className={cx("content__filter--name")}>video</h4>
+                        <input
+                            value={"video"}
+                            className={cx("content__filter--control")}
+                            type="radio"
+                            name="category"
+                            onChange={handleChangeCategory}
+                        />
+                    </section>
+                    <section className={cx("content__filter--group")}>
+                        <h4 className={cx("content__filter--name")}>docs</h4>
+                        <input
+                            value={"docs"}
+                            className={cx("content__filter--control")}
+                            type="radio"
+                            name="category"
+                            onChange={handleChangeCategory}
+                        />
+                    </section>
+                    <section className={cx("content__filter--group")}>
+                        <h4 className={cx("content__filter--name")}>pdf</h4>
+                        <input
+                            value={"pdfs"}
+                            className={cx("content__filter--control")}
+                            type="radio"
+                            name="category"
+                            onChange={handleChangeCategory}
+                        />
+                    </section>
                 </article>
             )}
         </section>

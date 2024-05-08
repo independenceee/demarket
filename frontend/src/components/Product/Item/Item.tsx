@@ -30,13 +30,13 @@ const Item = function ({ product, index }: Props) {
         >
             <div
                 className={cx("container")}
-                onClick={() => router.push(`/detail/${product.policyId + product.assetName}`)}
+                onClick={() => router.push(`/detail/${product?.policyId + product?.assetName}`)}
             >
-                <Image type={product?.metadata.mediaType} url={product?.metadata.image} />
+                <Image type={product?.metadata?.mediaType} url={product?.metadata?.image} />
                 <section className={cx("content")}>
                     <h3 className={cx("name")}>{convertHexToString(product?.assetName)}</h3>
                     <h3 className={cx("type")}>
-                        {product?.metadata.mediaType ? product?.metadata.mediaType.split("/").pop() : ""}
+                        {product?.metadata?.mediaType ? product?.metadata?.mediaType.split("/").pop() : ""}
                     </h3>
                 </section>
                 <section className={cx("information")}>

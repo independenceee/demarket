@@ -28,7 +28,7 @@ const Detail = function ({}: Props) {
     const [policyId] = useState<string>(unit.slice(0, 56));
     const [assetName] = useState<string>(unit.slice(56));
     const { lucid } = useContext<LucidContextType>(LucidContext);
-    const { sell } = useContext<SmartContractContextType>(SmartContractContext);
+    const { sell, buy, refund } = useContext<SmartContractContextType>(SmartContractContext);
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ["Marketplaces", page],
@@ -44,8 +44,6 @@ const Detail = function ({}: Props) {
         queryFn: () => get(`/marketplaces?policyId=${policyId}&assetName=${assetName}`),
         enabled: Boolean(policyId) || Boolean(assetName),
     });
-
-    console.log(product);
 
     const {
         data: histories,
@@ -65,6 +63,21 @@ const Detail = function ({}: Props) {
             authorAddress: product.authorAddress,
             price: BigInt(100000000),
             royalties: BigInt(100000000 / 100),
+        });
+    };
+
+    const handleBuy = async function () {
+        await buy({
+            lucid: lucid,
+            products: [product],
+        });
+    };
+
+    const handleRefund = async function () {
+        await refund({
+            lucid: lucid,
+            policyId: product.policyId,
+            assetName: product.assetName,
         });
     };
 
@@ -111,7 +124,9 @@ const Detail = function ({}: Props) {
                                 )}
                             </div>
 
-                            <button onClick={handleSell}> Sell</button>
+                            <button onClick={handleSell}>Sell</button>
+                            <button onClick={handleBuy}>Buy</button>
+                            <button onClick={handleRefund}>Refund</button>
 
                             <div className={cx("detail")}>
                                 <Card title="NftItem" icon={icons.glass} />

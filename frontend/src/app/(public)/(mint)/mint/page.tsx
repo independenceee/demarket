@@ -3,23 +3,18 @@ import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import axios from "axios";
 import Image from "next/image";
-// import DemarketContext from "@/contexts/components/DemarketContext";
-// import SmartContractContext from "@/contexts/components/SmartContractContext";
-// import LucidContext from "@/contexts/components/LucidContext";
-// import Button from "@/components/Button";
-// import { toast } from "react-toastify";
-// import images from "@/assets/images";
-// import { LucidContextType } from "@/types/contexts/LucidContextType";
-// import { SmartContractType } from "@/types/contexts/SmartContextType";
-// import { DemarketContextType } from "@/types/contexts/DemarketContextType";
-// import { ModalContextType } from "@/types/contexts/ModalContextType";
-// import ModalContext from "@/contexts/components/ModalContext";
 import { ClipLoader } from "react-spinners";
 import { Button } from "@mui/material";
 import { AddIcon, TrashIcon } from "~/components/Icons";
 
 import styles from "./Mint.module.scss";
 import images from "~/assets/images";
+import { LucidContextType } from "~/types/contexts/LucidContextType";
+import LucidContext from "~/contexts/components/LucidContext";
+import { toast } from "react-toastify";
+import { SmartContractContextType } from "~/types/contexts/SmartContractContextType";
+import SmartContractContext from "~/contexts/components/SmartContractContext";
+import pinata from "~/services/pinata";
 const cx = classNames.bind(styles);
 
 function convertMetadataToObj(metadataArray: any) {
@@ -35,11 +30,9 @@ function convertMetadataToObj(metadataArray: any) {
 type Props = {};
 
 const MintPage = function ({}: Props) {
-    const [isActionCreate, setIsActionCreate] = useState(false);
-    // const { toggleNotificationConnectWallet } = useContext<ModalContextType>(ModalContext);
-    // const { lucidWallet } = useContext<LucidContextType>(LucidContext);
-    // const { mintAssetService } = useContext<SmartContractType>(SmartContractContext);
-    // const { addNft } = useContext<DemarketContextType>(DemarketContext);
+    const { lucid } = useContext<LucidContextType>(LucidContext);
+    const { mint } = useContext<SmartContractContextType>(SmartContractContext);
+
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [mediaType, setMediaType] = useState<string>("Media type asset");
@@ -98,61 +91,32 @@ const MintPage = function ({}: Props) {
         }
     };
 
-    // const handleMintNft = async function () {
-    //     try {
-    //         setIsActionCreate(true);
-    //         if (lucidWallet) {
-    //             const formData = new FormData();
-    //             formData.append("file", image);
-    //             const metadata = JSON.stringify({ name: "fileName" });
-    //             const customMetadata = convertMetadataToObj(metadatas);
-    //             formData.append("pinataMetadata", metadata);
-    //             const options = JSON.stringify({ cidVersion: 0 });
-    //             formData.append("pinataOptions", options);
-    //             const response = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
-    //                 headers: {
-    //                     "Content-Type": `multipart/form-data; boundary=${formData}`,
-    //                     Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiIzOTBlYTJkYy04ZDc5LTQzYWMtYjFkOS0zYTE5ZWRkZTkzNzYiLCJlbWFpbCI6Im5ndXllbmtoYW5oMTcxMTIwMDNAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjQ0MjE1ZTZjMzk0ZjNjMjNjMzkxIiwic2NvcGVkS2V5U2VjcmV0IjoiOWZiYWRjOWIxOWJhMmRjYzNiZTU4MzMyZDJiNjAxMjE4YzhjYTM5NjIzMzU5ZGY3NWY3YzA3NjYxYTFlNGZkMyIsImlhdCI6MTcwMzA2MDI0N30.8D5f1dlPgVKDif5CikQtU4kd7pCcqIWvXo2Mlu5mYXk`,
-    //                 },
-    //             });
+    const handleMint = async function () {
+        const customMetadata = convertMetadataToObj(metadatas);
+        const url = await pinata({ image: image });
 
-    //             const { txHash, policyId, assetName } = await mintAssetService({
-    //                 lucid: lucidWallet,
-    //                 customMetadata,
-    //                 description,
-    //                 imageUrl: "ipfs://" + response.data.IpfsHash,
-    //                 mediaType,
-    //                 title,
-    //             });
+        await mint({
+            lucid: lucid,
+            mediaType: mediaType,
+            description: description,
+            url: url,
+            metadata: customMetadata,
+            title: title,
+        });
 
-    //             if (!txHash) {
-    //                 toast.warning("Mint asset faild");
-    //                 return;
-    //             }
-
-    //             setTitle("");
-    //             setDescription("");
-    //             setImage(null!);
-    //             setImagePath("");
-    //             setMetadatas([]);
-    //             setFileName("PNG, Video, Music, GIF, MP4 or MP3. Max 100mb");
-    //             setMediaType("Media type asset");
-    //             toast.success("Mint asset successfully");
-    //             await addNft({ policyId, assetName });
-    //         } else {
-    //             toggleNotificationConnectWallet();
-    //         }
-    //     } catch (error) {
-    //         toast.warning("Mint asset faild");
-    //         console.log(error);
-    //     } finally {
-    //         setIsActionCreate(false);
-    //     }
-    // };
+        setTitle("");
+        setDescription("");
+        setImage(null!);
+        setImagePath("");
+        setMetadatas([]);
+        setFileName("PNG, Video, Music, GIF, MP4 or MP3. Max 100mb");
+        setMediaType("Media type asset");
+        toast.success("Mint asset successfully");
+    };
 
     return (
         <main className={cx("wrapper")} data-aos="fade-down">
-            <title>{isActionCreate ? "Mint ..." : "Mint - Demarket"}</title>
+            <title>Mint - Demarket</title>
             <div className={cx("container")}>
                 <section className={cx("left")}>
                     <header className={cx("header")}>Mint Your Asset</header>
@@ -195,21 +159,6 @@ const MintPage = function ({}: Props) {
                         </div>
                     </div>
 
-                    {/* <div className={cx("select-wrapper")}>
-                        <h3 className={cx("label")}>Category</h3>
-
-                        <Select
-                            placeholder="Select category ..."
-                            isMulti
-                            className={cx("multi-select")}
-                            options={categories.map(function (category) {
-                                return { value: category.id, label: category.name };
-                            })}
-                            onChange={console.log}
-                        />
-                    </div> */}
-
-                    {/* select-end */}
                     {/* description-begin */}
                     <div className={cx("title-wrapper")}>
                         <h3 className={cx("label")}>Description</h3>
@@ -310,16 +259,7 @@ const MintPage = function ({}: Props) {
                         </div>
 
                         <div className={cx("mint")}>
-                            {!isActionCreate ? (
-                                <Button
-                                    className={cx("button__mint")}
-                                    // onClick={handleMintNft}
-                                >
-                                    Create
-                                </Button>
-                            ) : (
-                                <ClipLoader size={40} loading={isActionCreate} color="#7000ff" speedMultiplier={1} />
-                            )}
+                            <Button onClick={handleMint}>Mint</Button>
                         </div>
                     </div>
                     {/* bill-end */}
