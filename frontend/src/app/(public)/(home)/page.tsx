@@ -36,6 +36,7 @@ const Home = function ({}: Props) {
                             page={page}
                             loading={isLoading}
                             totalPage={data?.totalPage}
+                            setPage={setPage}
                         />
                     </article>
                 </section>
@@ -53,6 +54,7 @@ const Home = function ({}: Props) {
                                         ? new Array(10).fill(null).map(function (value: any, index: number) {
                                               return (
                                                   <div
+                                                      key={index}
                                                       className={cx("skeleton")}
                                                       data-aos="zoom-in-up"
                                                       data-aos-delay={`${100 * (index + 4)}`}

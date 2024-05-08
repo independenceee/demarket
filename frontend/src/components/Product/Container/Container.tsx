@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 import classNames from "classnames/bind";
 import styles from "./Container.module.scss";
 import Item from "../Item";
@@ -12,11 +12,16 @@ const cx = classNames.bind(styles);
 type Props = {
     products?: Array<ProductType | any>;
     page?: number;
+    setPage?: Dispatch<SetStateAction<number>>;
     totalPage?: number;
     loading?: boolean;
 };
 
-const Container = function ({ products, page, loading, totalPage }: Props) {
+const Container = function ({ products, page, loading, totalPage, setPage }: Props) {
+    const handleChangePage = function (event: ChangeEvent<unknown>, value: number) {
+        setPage && setPage(value);
+    };
+
     return (
         <div className={cx("wrapper")}>
             <div className={cx("container")}>
@@ -29,7 +34,7 @@ const Container = function ({ products, page, loading, totalPage }: Props) {
                         return <Item key={index} product={product} index={index} />;
                     })}
             </div>
-            <Paginate onChange={null!} page={page} loading={loading} totalPage={totalPage} />
+            <Paginate onChange={handleChangePage} page={page} loading={loading} totalPage={totalPage} />
         </div>
     );
 };
