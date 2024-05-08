@@ -19,6 +19,7 @@ import { LucidContextType } from "~/types/contexts/LucidContextType";
 import LucidContext from "~/contexts/components/LucidContext";
 import { SmartContractContextType } from "~/types/contexts/SmartContractContextType";
 import SmartContractContext from "~/contexts/components/SmartContractContext";
+import Image from "next/image";
 const cx = classNames.bind(styles);
 type Props = {};
 
@@ -90,7 +91,9 @@ const Detail = function ({}: Props) {
                         <div className={cx("about-inner")}>
                             <div className={cx("video-iframe-wrapper")}>
                                 {checkMediaType(product?.metadata?.mediaType, "image") && (
-                                    <img
+                                    <Image
+                                        width={0}
+                                        height={0}
                                         className={cx("video-iframe")}
                                         src={String(convertIpfsAddressToUrl(product?.metadata?.image))}
                                         alt=""

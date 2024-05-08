@@ -24,7 +24,7 @@ type Props = {
     setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Orders = ({ className, isLoading, data, isError, page, setPage }: Props) => {
+const History = ({ className, isLoading, data, isError, page, setPage }: Props) => {
     const { wallet } = useContext(WalletContext);
 
     return (
@@ -98,4 +98,4 @@ const Orders = ({ className, isLoading, data, isError, page, setPage }: Props) =
     );
 };
 
-export default Orders;
+export default History;
