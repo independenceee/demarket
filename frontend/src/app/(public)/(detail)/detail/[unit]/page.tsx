@@ -15,6 +15,10 @@ import { get } from "~/utils/http-request";
 import { useQuery } from "@tanstack/react-query";
 import checkMediaType from "~/helpers/check-media-type";
 import convertIpfsAddressToUrl from "~/helpers/convert-ipfs-to-url";
+import { LucidContextType } from "~/types/contexts/LucidContextType";
+import LucidContext from "~/contexts/components/LucidContext";
+import { SmartContractContextType } from "~/types/contexts/SmartContractContextType";
+import SmartContractContext from "~/contexts/components/SmartContractContext";
 const cx = classNames.bind(styles);
 type Props = {};
 
@@ -23,6 +27,8 @@ const Detail = function ({}: Props) {
     const { unit }: any = useParams();
     const [policyId] = useState<string>(unit.slice(0, 56));
     const [assetName] = useState<string>(unit.slice(56));
+    const { lucid } = useContext<LucidContextType>(LucidContext);
+    const { sell } = useContext<SmartContractContextType>(SmartContractContext);
 
     const { data, isLoading, isError } = useQuery({
         queryKey: ["Marketplaces", page],
@@ -51,6 +57,17 @@ const Detail = function ({}: Props) {
         enabled: Boolean(policyId) || Boolean(assetName),
     });
 
+    const handleSell = async function () {
+        await sell({
+            lucid: lucid,
+            policyId: product.policyId,
+            assetName: product.assetName,
+            authorAddress: product.authorAddress,
+            price: BigInt(100000000),
+            royalties: BigInt(100000000 / 100),
+        });
+    };
+
     return (
         <main className={cx("wrapper")} data-aos="fade-down">
             <div className={cx("container")}>
@@ -58,48 +75,43 @@ const Detail = function ({}: Props) {
                     <div className={cx("stats-inner")}>
                         <div className={cx("about-inner")}>
                             <div className={cx("video-iframe-wrapper")}>
-                                {/* <iframe
-                                    className={cx("video-iframe")}
-                                    src="https://www.youtube.com/embed/DCWY93O_QAU"
-                                    title="Daultarget - Mục Tiêu Kép"
-                                    frameBorder={"none"}
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                ></iframe> */}
-                                {checkMediaType(product?.metadata.mediaType, "image") && (
+                                {checkMediaType(product?.metadata?.mediaType, "image") && (
                                     <img
                                         className={cx("video-iframe")}
-                                        src={String(convertIpfsAddressToUrl(product?.metadata.image))}
+                                        src={String(convertIpfsAddressToUrl(product?.metadata?.image))}
                                         alt=""
                                     />
                                 )}
 
-                                {checkMediaType(product?.metadata.mediaType, "video") && (
+                                {checkMediaType(product?.metadata?.mediaType, "video") && (
                                     <video autoPlay muted loop className={cx("video-iframe")}>
                                         <source
-                                            src={String(convertIpfsAddressToUrl(product?.metadata.image))}
+                                            src={String(convertIpfsAddressToUrl(product?.metadata?.image))}
                                             type="video/mp4"
                                         />
                                     </video>
                                 )}
 
-                                {checkMediaType(product?.metadata.mediaType, "application") && (
+                                {checkMediaType(product?.metadata?.mediaType, "application") && (
                                     <iframe
                                         frameBorder={"none"}
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                         className={cx("video-iframe")}
-                                        src={String(convertIpfsAddressToUrl(product?.metadata.image))}
+                                        src={String(convertIpfsAddressToUrl(product?.metadata?.image))}
                                     ></iframe>
                                 )}
 
-                                {checkMediaType(product?.metadata.mediaType, "audio") && (
+                                {checkMediaType(product?.metadata?.mediaType, "audio") && (
                                     <audio controls>
                                         <source
-                                            src={String(convertIpfsAddressToUrl(product?.metadata.image))}
+                                            src={String(convertIpfsAddressToUrl(product?.metadata?.image))}
                                             type="audio/mpeg"
                                         />
                                     </audio>
                                 )}
                             </div>
+
+                            <button onClick={handleSell}> Sell</button>
 
                             <div className={cx("detail")}>
                                 <Card title="NftItem" icon={icons.glass} />

@@ -54,6 +54,12 @@
     height: 100%;
 }
 
+.skeleton {
+    background: transparent;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+
 @keyframes runSliderLeft {
     from {
         transform: translateX(0);

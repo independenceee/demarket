@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "./Table.module.scss";
 import Link from "next/link";
-import {  HeaderTableType, TransactionHistoryType } from "~/types/GenericsType";
+import { HeaderTableType, TransactionHistoryType } from "~/types/GenericsType";
 import { isTransactionHistoryType } from "~/utils/utils";
 
 const cx = classNames.bind(styles);
@@ -33,14 +33,6 @@ const Table = function ({ className, data, titles, center = false }: Props) {
                 </tr>
             ));
         }
-        return data.map((item, index) => (
-            <tr className={cx("row")} key={index}>
-                <td className={cx("row-item", "epoch")}>{item.epoch}</td>
-                <td className={cx("row-item", "amount")}>{item.amount}</td>
-                <td className={cx("row-item", "rewards")}>{item.rewards}</td>
-                <td className={cx("row-item", "status")}>{item.status}</td>
-            </tr>
-        ));
     };
 
     return (

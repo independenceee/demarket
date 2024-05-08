@@ -11,7 +11,6 @@ class MarketplaceController {
                 policyId: policyId as string,
                 assetName: assetName as string,
             });
-            console.log(product);
             return response.status(StatusCodes.OK).json(product);
         }
         const products = await marketplacesService.getProducts({ page: Number(page), pageSize: Number(pageSize) });

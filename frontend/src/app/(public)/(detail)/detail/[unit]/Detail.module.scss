@@ -1,5 +1,5 @@
 .wrapper {
-    margin-top: 80px;
+    margin-top: 12rem;
 }
 
 .other {
@@ -11,8 +11,6 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-
-    width: min(90rem, 90%);
     max-width: 840px;
     position: relative;
     margin: 0 auto;
@@ -188,7 +186,7 @@
     width: 52px;
     align-items: center;
     background-image: linear-gradient(180deg, #293159 0, #5b6497);
-    border-radius: 16px;
+    border-radius: 1rem;
     display: flex;
     justify-content: center;
 }
@@ -293,7 +291,7 @@
         top: 32px;
         background: var(--background-primary);
         box-shadow: 0 0 4px rgba(177, 109, 215, 0.1);
-        border-radius: 22px;
+        border-radius: 1rem;
     }
 }
 
@@ -303,7 +301,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    border-radius: 22px;
+    border-radius: 1rem;
 }
 
 .about {

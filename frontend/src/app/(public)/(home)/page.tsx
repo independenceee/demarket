@@ -11,6 +11,7 @@ import Container from "~/components/Product/Container";
 import { get } from "~/utils/http-request";
 import { useQuery } from "@tanstack/react-query";
 import Slider from "~/components/Product/Slider";
+import Skeleton from "react-loading-skeleton";
 
 const cx = classNames.bind(styles);
 
@@ -50,7 +51,16 @@ const Home = function ({}: Props) {
                                 <div className={cx("slider__list-left")}>
                                     {isLoading
                                         ? new Array(10).fill(null).map(function (value: any, index: number) {
-                                              return <></>;
+                                              return (
+                                                  <div
+                                                      className={cx("skeleton")}
+                                                      data-aos="zoom-in-up"
+                                                      data-aos-delay={`${100 * (index + 4)}`}
+                                                      data-aos-duration={`${1000 * (index + 4)}`}
+                                                  >
+                                                      <Skeleton width={310} height={200} />
+                                                  </div>
+                                              );
                                           })
                                         : data.products.slice(0, 5).map(function (product: any, index: number) {
                                               return (

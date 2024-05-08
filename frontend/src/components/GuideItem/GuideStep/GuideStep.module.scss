@@ -1,6 +1,6 @@
 .wrapper {
     margin: 32px 0;
-    color: var(--white-color);
+    color: var(--text-color);
 }
 
 .header {
@@ -22,7 +22,8 @@
     border-radius: 50%;
     text-align: center;
     font-weight: bold;
-    padding: 10px 16px;
+    width: 3.5rem;
+    height: 3.5rem;
     margin-right: 16px;
     background: linear-gradient(
         90deg,
@@ -33,6 +34,7 @@
         rgba(4, 0, 203, 0.89) 79.64%,
         #1400ff 99.32%
     );
+    font-size: 1.5rem;
     color: var(--white-color);
 }
 
@@ -51,5 +53,5 @@
 
 .guide-step-heading {
     margin-top: 24px;
-    color: var(--white-color);
+    color: var(--text-color);
 }

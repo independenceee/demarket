@@ -24,6 +24,8 @@ export type ProductType = {
     metadata?: any;
     sellerAddress?: string;
     currentAddress?: string;
+    authorAddress?: string;
+    
     image?: string;
     type?: string;
 };

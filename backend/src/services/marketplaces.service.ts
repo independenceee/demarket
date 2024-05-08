@@ -81,13 +81,25 @@ class MarketplaceService {
             return product.policyId == policyId && product.assetName == assetName;
         });
 
-        if (!existUtxo) return;
-        const product: MarketplaceDatum = Data.from<MarketplaceDatum>(existUtxo.datum!, MarketplaceDatum);
-        const infomation = await this.blockfrost.assetsById(product.policyId + product.assetName);
-        const transactions = await this.blockfrost.assetsTransactions(product.policyId + product.assetName);
+        const transactions = await this.blockfrost.assetsTransactions(policyId + assetName);
         const authorAddress = (await this.blockfrost.txsUtxos(transactions[0].tx_hash)).inputs[0].address;
         const sellerAddress = (await this.blockfrost.txsUtxos(transactions[transactions.length - 1].tx_hash)).inputs[0].address;
+        const infomation = await this.blockfrost.assetsById(policyId + assetName);
         const currentAddress = (await this.blockfrost.txsUtxos(transactions[transactions.length - 2].tx_hash)).inputs[0].address;
+        if (!existUtxo) {
+            return {
+                policyId: policyId,
+                assetName: assetName,
+                fingerprint: infomation.fingerprint,
+                sellerAddress: sellerAddress,
+                authorAddress: authorAddress,
+                currentAddress: currentAddress,
+                price: null,
+                royalties: null,
+                metadata: infomation.onchain_metadata,
+            };
+        }
+        const product: MarketplaceDatum = Data.from<MarketplaceDatum>(existUtxo.datum!, MarketplaceDatum);
 
         return {
             policyId: product.policyId,

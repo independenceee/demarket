@@ -40,3 +40,13 @@
     right: -24px;
     width: 64px;
 }
+
+@media (max-width: 1024px) {
+    .title {
+        font-size: 3rem;
+    }
+
+    .description {
+        font-size: 1.7rem;
+    }
+}
