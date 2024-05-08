@@ -53,7 +53,7 @@ const Orders = ({ className, isLoading, data, isError, page, setPage }: Props) =
                             <p className={cx("notification")}>There was an error fetching data</p>
                         </div>
                     )}
-                    {data && data.histories.length === 0 && (
+                    {data && data?.histories?.length === 0 && (
                         <div className={cx("no-data")}>
                             <div className={cx("icon-wrapper")}>
                                 <Image src={icons.glass} className={cx("icon")} alt="search-icon" />
@@ -61,7 +61,7 @@ const Orders = ({ className, isLoading, data, isError, page, setPage }: Props) =
                             <p className={cx("notification")}>No data available</p>
                         </div>
                     )}
-                    {data && data.histories.length > 0 && (
+                    {data && data?.histories?.length > 0 && (
                         <>
                             <div className={cx("table-wrapper", "irresponsive")}>
                                 <Table
